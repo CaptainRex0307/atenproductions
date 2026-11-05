@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aten Productions — Technical Direction & Video Engineering</title>
+  <meta name="description" content="Aten Productions: freelance Technical Director and Video Engineer for live events, broadcast and streaming.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+Egyptian+Hieroglyphs&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/aten.css">
+</head>
+<body>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav" id="top">
+    <a href="#top" class="brand" aria-label="Aten Productions home">
+      <svg class="brand-disk" viewBox="0 0 64 64" aria-hidden="true">
+        <circle cx="32" cy="22" r="11" />
+        <g class="rays">
+          <line x1="32" y1="33" x2="32" y2="58"/><circle cx="32" cy="59" r="2"/>
+          <line x1="25" y1="31" x2="16" y2="54"/><circle cx="15.5" cy="55" r="2"/>
+          <line x1="39" y1="31" x2="48" y2="54"/><circle cx="48.5" cy="55" r="2"/>
+          <line x1="22" y1="27" x2="5"  y2="44"/><circle cx="4.5" cy="45" r="2"/>
+          <line x1="42" y1="27" x2="59" y2="44"/><circle cx="59.5" cy="45" r="2"/>
+        </g>
+      </svg>
+      <span>ATEN<small>PRODUCTIONS</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
+    <nav class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#work">Work</a>
+      <a href="#rig">The Rig</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a href="photography/" class="nav-photo">Photography ↗</a>
+    </nav>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="hero-sun" aria-hidden="true">
+      <div class="sun-rays"></div>
+      <div class="sun-core"></div>
+    </div>
+
+    <div class="hero-inner">
+      <p class="eyebrow mono">// FREELANCE · LIVE · BROADCAST · STREAM</p>
+      <h1>Technical Direction<br><span class="gold">&amp; Video Engineering</span></h1>
+      <p class="lede">I'm <strong>[Your Name]</strong>. Through Aten Productions I bring clean signal, steady shows and
+        calm under pressure to live events, broadcasts and productions of every size.</p>
+      <div class="cta-row">
+        <a href="#contact" class="btn btn-gold">Book a Production</a>
+        <a href="#work" class="btn btn-ghost">View Work</a>
+      </div>
+    </div>
+
+    <!-- broadcast monitor readout -->
+    <aside class="monitor mono" aria-label="Status readout">
+      <div class="mon-row"><span class="tally"></span> PGM <b>ON AIR</b></div>
+      <div class="mon-row">TC <b id="timecode">00:00:00:00</b></div>
+      <div class="mon-row">FMT <b>2160p 59.94</b></div>
+      <div class="mon-row">LINK <b>12G-SDI</b></div>
+      <div class="bars" aria-hidden="true">
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      </div>
+    </aside>
+  </section>
+
+  <div class="frieze" aria-hidden="true"></div>
+
+  <!-- ============ SERVICES ============ -->
+  <section id="services" class="section">
+    <header class="section-head">
+      <p class="mono kicker">01 / SERVICES</p>
+      <h2>What I Bring to the Show</h2>
+    </header>
+    <div class="cards">
+      <article class="card">
+        <div class="glyph">𓂀</div>
+        <h3>Technical Direction</h3>
+        <p>Switching, show calling and running the technical side of the production so the creative team can focus on the story.</p>
+      </article>
+      <article class="card">
+        <div class="glyph">𓋹</div>
+        <h3>Video Engineering</h3>
+        <p>Camera shading &amp; matching, CCU control, color and exposure so every angle looks like the same show.</p>
+      </article>
+      <article class="card">
+        <div class="glyph">𓊽</div>
+        <h3>Systems &amp; Signal Flow</h3>
+        <p>Design, build and troubleshooting of routing, conversion, sync/genlock and fiber, documented and labeled.</p>
+      </article>
+      <article class="card">
+        <div class="glyph">𓇳</div>
+        <h3>Streaming &amp; Broadcast</h3>
+        <p>Encoders, multi-destination streams, ISO records and redundancy plans built to stay on air.</p>
+      </article>
+      <article class="card">
+        <div class="glyph">𓆣</div>
+        <h3>LED &amp; Projection</h3>
+        <p>Processor setup, content mapping, scaling and IMAG for stages, conferences and worship.</p>
+      </article>
+      <article class="card">
+        <div class="glyph">𓏏</div>
+        <h3>Consulting &amp; Training</h3>
+        <p>Spec'ing gear, planning upgrades, and training volunteer or in-house crews to run with confidence.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ WORK ============ -->
+  <section id="work" class="section section-alt">
+    <header class="section-head">
+      <p class="mono kicker">02 / SELECTED WORK</p>
+      <h2>Productions</h2>
+    </header>
+    <div class="work-grid">
+      <!-- Duplicate an <article class="work"> block per project. Replace the .work-media div with an <img> when you have stills. -->
+      <article class="work">
+        <div class="work-media" style="--h:205"><span class="mono">PROJECT STILL</span></div>
+        <div class="work-body">
+          <p class="mono meta">2026 · LIVE EVENT</p>
+          <h3>[Project Name]</h3>
+          <p>Role: Technical Director. 6-camera multicam show with live stream and IMAG to a 40 ft LED wall.</p>
+          <ul class="tags"><li>Switching</li><li>IMAG</li><li>Stream</li></ul>
+        </div>
+      </article>
+      <article class="work">
+        <div class="work-media" style="--h:35"><span class="mono">PROJECT STILL</span></div>
+        <div class="work-body">
+          <p class="mono meta">2025 · BROADCAST</p>
+          <h3>[Project Name]</h3>
+          <p>Role: Video Engineer. Shaded 8 system cameras for a regional sports broadcast.</p>
+          <ul class="tags"><li>Shading</li><li>CCU</li><li>Sports</li></ul>
+        </div>
+      </article>
+      <article class="work">
+        <div class="work-media" style="--h:170"><span class="mono">PROJECT STILL</span></div>
+        <div class="work-body">
+          <p class="mono meta">2025 · INSTALL</p>
+          <h3>[Project Name]</h3>
+          <p>Role: Systems Designer. Designed and commissioned a control room with SDI/NDI hybrid routing.</p>
+          <ul class="tags"><li>Design</li><li>Routing</li><li>NDI</li></ul>
+        </div>
+      </article>
+      <article class="work">
+        <div class="work-media" style="--h:265"><span class="mono">PROJECT STILL</span></div>
+        <div class="work-body">
+          <p class="mono meta">2024 · CONFERENCE</p>
+          <h3>[Project Name]</h3>
+          <p>Role: TD / Streaming Engineer. Three-day hybrid conference with remote presenters and 4 simultaneous streams.</p>
+          <ul class="tags"><li>Hybrid</li><li>Encoding</li><li>Remote</li></ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ RIG ============ -->
+  <section id="rig" class="section">
+    <header class="section-head">
+      <p class="mono kicker">03 / THE RIG</p>
+      <h2>Tools I Run</h2>
+    </header>
+    <div class="spec">
+      <div class="spec-col">
+        <h4 class="mono">SWITCHERS</h4>
+        <ul><li>Ross Carbonite / Acuity</li><li>Blackmagic ATEM</li><li>Grass Valley</li><li>vMix · OBS</li></ul>
+      </div>
+      <div class="spec-col">
+        <h4 class="mono">CAMERAS &amp; SHADING</h4>
+        <ul><li>Sony system cameras / RCP</li><li>Blackmagic URSA / Studio</li><li>PTZ (Panasonic, Sony)</li><li>Waveform &amp; vectorscope</li></ul>
+      </div>
+      <div class="spec-col">
+        <h4 class="mono">SIGNAL &amp; ROUTING</h4>
+        <ul><li>SDI · fiber · NDI · ST 2110</li><li>Videohub / Ultrix routers</li><li>Sync, genlock &amp; conversion</li><li>Intercom (Clear-Com, RTS)</li></ul>
+      </div>
+      <div class="spec-col">
+        <h4 class="mono">PLAYBACK &amp; DISPLAY</h4>
+        <ul><li>ProPresenter · Resolume</li><li>Novastar / Brompton LED</li><li>Replay &amp; graphics</li><li>Projection blending</li></ul>
+      </div>
+    </div>
+    <p class="mono note">// Edit this list to match your real gear and skills.</p>
+  </section>
+
+  <!-- ============ ABOUT / TIMELINE ============ -->
+  <section id="about" class="section section-alt">
+    <header class="section-head">
+      <p class="mono kicker">04 / ABOUT</p>
+      <h2>Behind the Console</h2>
+    </header>
+    <div class="about">
+      <div class="about-text">
+        <p>Aten was the ancient Egyptian sun disk, the light that reaches everything. That's the idea behind
+          Aten Productions: get every signal where it needs to go, looking its best.</p>
+        <p>[Write 2–3 sentences about yourself: how you got into production, what kinds of shows you love, and what
+          clients can expect working with you.]</p>
+        <a href="assets/resume.pdf" class="btn btn-ghost">Download Résumé</a>
+      </div>
+      <ol class="timeline">
+        <li><span class="mono">2026 — NOW</span><h4>Founder, Aten Productions</h4><p>Freelance TD &amp; video engineering.</p></li>
+        <li><span class="mono">20XX — 20XX</span><h4>[Role], [Company]</h4><p>[One line about what you did.]</p></li>
+        <li><span class="mono">20XX — 20XX</span><h4>[Role], [Company]</h4><p>[One line about what you did.]</p></li>
+        <li><span class="mono">20XX</span><h4>[Education / Certification]</h4><p>[School or program.]</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ PHOTO CROSSOVER ============ -->
+  <section class="crossover">
+    <div class="crossover-inner">
+      <p class="mono kicker">AN ATEN PRODUCTIONS BRAND</p>
+      <h2>Off the clock, I'm behind a different lens.</h2>
+      <p>My hobby photography lives under its own studio, <strong>Kōsen Photo</strong> (光線, "ray of light").</p>
+      <a href="photography/" class="btn btn-sakura">Enter Kōsen Photo →</a>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact" class="section">
+    <header class="section-head">
+      <p class="mono kicker">05 / CONTACT</p>
+      <h2>Let's Build Your Show</h2>
+    </header>
+    <div class="contact">
+      <form class="contact-form" action="mailto:you@atenproductions.com" method="post" enctype="text/plain">
+        <label>Name<input name="name" required></label>
+        <label>Email<input name="email" type="email" required></label>
+        <label>Event date &amp; location<input name="event"></label>
+        <label>Tell me about the production<textarea name="message" rows="5" required></textarea></label>
+        <button class="btn btn-gold" type="submit">Send Inquiry</button>
+      </form>
+      <div class="contact-info mono">
+        <p><span>EMAIL</span><a href="mailto:you@atenproductions.com">you@atenproductions.com</a></p>
+        <p><span>PHONE</span>(000) 000-0000</p>
+        <p><span>BASED IN</span>[City, State] · Available to travel</p>
+        <p><span>SOCIAL</span><a href="#">LinkedIn</a> · <a href="#">Instagram</a></p>
+      </div>
+    </div>
+  </section>
+
+  <div class="frieze" aria-hidden="true"></div>
+  <footer class="footer mono">
+    <p>© <span id="year"></span> Aten Productions · All signals nominal.</p>
+    <a href="photography/">Kōsen Photo ↗</a>
+  </footer>
+
+  <script src="js/aten.js"></script>
+</body>
+</html>

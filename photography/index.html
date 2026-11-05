@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kōsen Photo — Photography by [Your Name]</title>
+  <meta name="description" content="Kōsen Photo: hobby photography by [Your Name]. An Aten Productions brand.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/photo.css">
+</head>
+<body>
+  <canvas id="petals" aria-hidden="true"></canvas>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav">
+    <a href="#top" class="logo">
+      <span class="logo-jp">光線</span>
+      <span class="logo-en">KŌSEN<b>PHOTO</b></span>
+    </a>
+    <nav class="nav-links">
+      <a href="#gallery">Gallery</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a href="../" class="back">← Aten Productions</a>
+    </nav>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="top">
+    <div class="speedlines" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <p class="hero-chapter">CHAPTER 01 · 第一話</p>
+      <h1>
+        <span class="h1-line">Chasing</span>
+        <span class="h1-line pop">Light.</span>
+      </h1>
+      <div class="bubble">
+        Hi! I'm <b>[Your Name]</b>. When I'm not engineering video, I'm out catching golden hours,
+        neon streets and the in-between moments. ✦
+      </div>
+      <a href="#gallery" class="btn">See the Gallery ▼</a>
+    </div>
+    <div class="hero-panel" aria-hidden="true">
+      <div class="panel-frame">
+        <!-- Swap this for your favourite shot: <img src="images/hero.jpg" alt=""> -->
+        <div class="panel-ph"><span>YOUR<br>HERO<br>SHOT</span></div>
+      </div>
+      <span class="sfx">パシャ!</span>
+    </div>
+  </section>
+
+  <div class="tape" aria-hidden="true"><span>KŌSEN PHOTO ✦ 光線 ✦ RAY OF LIGHT ✦ KŌSEN PHOTO ✦ 光線 ✦ RAY OF LIGHT ✦ KŌSEN PHOTO ✦ 光線 ✦ RAY OF LIGHT ✦&nbsp;</span><span>KŌSEN PHOTO ✦ 光線 ✦ RAY OF LIGHT ✦ KŌSEN PHOTO ✦ 光線 ✦ RAY OF LIGHT ✦ KŌSEN PHOTO ✦ 光線 ✦ RAY OF LIGHT ✦&nbsp;</span></div>
+
+  <!-- ============ GALLERY ============ -->
+  <section id="gallery" class="section">
+    <header class="section-head">
+      <h2><span class="num">02</span> Gallery <small>ギャラリー</small></h2>
+      <div class="filters" role="tablist" aria-label="Filter photos"></div>
+    </header>
+    <!-- Photos are listed in js/photo.js — edit the PHOTOS array there. -->
+    <div class="manga-grid" id="grid"></div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="about" class="section about">
+    <div class="about-card">
+      <div class="about-portrait">
+        <!-- <img src="images/me.jpg" alt="[Your Name]"> -->
+        <div class="panel-ph small"><span>YOU</span></div>
+      </div>
+      <div class="about-text">
+        <h2><span class="num">03</span> The Photographer <small>写真家</small></h2>
+        <p>[Write a short, friendly bio. What got you into photography, what you love to shoot, and what gear lives in your bag.]</p>
+        <ul class="stats">
+          <li><b>📷</b><span>[Camera body]</span></li>
+          <li><b>🔭</b><span>[Favourite lens]</span></li>
+          <li><b>🌆</b><span>[Favourite subject]</span></li>
+        </ul>
+        <p class="brand-note">Kōsen Photo is a creative brand of <a href="../">Aten Productions</a>.
+          Same eye for light, different lens.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact" class="section contact">
+    <div class="bubble big">
+      <h2>Wanna collab? <small>一緒に撮ろう!</small></h2>
+      <p>Portraits, cosplay, events or just a photo walk. Send me a message!</p>
+      <div class="contact-links">
+        <a class="btn" href="mailto:photo@atenproductions.com">✉ Email</a>
+        <a class="btn alt" href="#">Instagram</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>© <span id="year"></span> Kōsen Photo · an <a href="../">Aten Productions</a> brand</p>
+  </footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" hidden>
+    <button class="lb-close" aria-label="Close">✕</button>
+    <button class="lb-nav prev" aria-label="Previous">‹</button>
+    <figure>
+      <div class="lb-media" id="lb-media"></div>
+      <figcaption id="lb-cap"></figcaption>
+    </figure>
+    <button class="lb-nav next" aria-label="Next">›</button>
+  </div>
+
+  <script src="js/photo.js"></script>
+</body>
+</html>
