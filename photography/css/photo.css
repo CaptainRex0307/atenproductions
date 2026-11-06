@@ -358,3 +358,10 @@ img { display: block; max-width: 100%; }
 .page-hero .file a:hover { color: var(--blood-2); }
 .moon.small { width: min(34vw, 320px); top: -10%; right: 6%; opacity: .7; }
 @media (max-width: 860px) { .moon.small { width: 55vw; right: -12%; top: -5%; opacity: .4; } }
+
+/* Collection page: centred moon + eye */
+.page-hero.centered { text-align: center; padding-top: 3.5rem; }
+.page-hero.centered .quote { display: inline-block; text-align: left; }
+.moon-stage { position: relative; width: min(70vw, 340px); aspect-ratio: 1; margin: 0 auto 1.5rem; display: grid; place-items: center; }
+.moon-stage .moon { position: absolute; inset: 0; top: 0; right: 0; width: 100%; }
+.moon-stage .eye-wrap { position: relative; width: 78%; margin: 0; }

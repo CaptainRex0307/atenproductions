@@ -115,6 +115,15 @@ img { max-width: 100%; display: block; }
   background: radial-gradient(circle at 40% 35%, var(--gold-2), var(--gold) 45%, #8a6414 100%);
   box-shadow: 0 0 80px rgba(212,165,55,.6), 0 0 200px rgba(212,165,55,.25);
 }
+.horus {
+  position: absolute; left: 50%; top: 52%; width: 70%;
+  transform: translate(-50%, -50%);
+  overflow: visible;
+  filter: drop-shadow(0 1px 0 rgba(255,240,190,.55)) drop-shadow(0 -1px 0 rgba(70,40,0,.35));
+}
+.horus path { fill: none; stroke: #5a3a06; stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; }
+.horus .h-brow { stroke-width: 9; }
+.horus .h-pupil { fill: #5a3a06; }
 .sun-rays {
   position: absolute; inset: 0;
   border-radius: 50%;
