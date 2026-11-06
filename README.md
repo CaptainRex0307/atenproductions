@@ -19,6 +19,7 @@ Tips
 - Drag list items to reorder them. The top photo is No. 001.
 - Tick **In the Trophy Room** on up to 5 photos to feature them on the photo home page.
 - Leave **Panel shape** on *auto* and the gallery arranges itself.
+- **Bookings:** paste your Google Form link under *Bookings*. In Google Forms: **Send → link icon → untick "Shorten URL" → Copy**. The full link shows the form right on the page; a short forms.gle link becomes a button instead.
 
 ## How it's built
 
@@ -31,6 +32,7 @@ media/                   ← uploaded photos & PDFs
 index.html               → Aten Productions (main page)
 photography/             → Dylan's Collection home (Trophy Room favourites)
 photography/collection/  → The Collection (full gallery with filters)
+photography/book/        → Book a Shoot (shows your Google Form)
 js/content.js            → loads content/*.json into the pages
 ```
 

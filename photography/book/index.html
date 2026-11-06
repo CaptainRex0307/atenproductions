@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en" data-root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Book a Shoot — Dylan's Collection</title>
+  <meta name="description" content="Book a photo shoot with Dylan's Collection.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Shippori+Mincho+B1:wght@600;800&family=Zen+Old+Mincho:wght@400;700;900&family=Special+Elite&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/photo.css">
+</head>
+<body>
+  <canvas id="ash" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav">
+    <a href="../" class="logo" aria-label="Dylan's Collection home">
+      <span class="logo-seal">蒐</span>
+      <span class="logo-en">DYLAN'S<b>COLLECTION</b></span>
+    </a>
+    <nav class="nav-links">
+      <a href="../">Home</a>
+      <a href="../#trophy-room">The Trophy Room</a>
+      <a href="../collection/">The Collection</a>
+      <a href="./" aria-current="page">Book a Shoot</a>
+      <a href="../#curator">The Curator</a>
+      <a href="../#contact">Contact</a>
+      <a href="../../" class="back">← Aten Productions</a>
+    </nav>
+  </header>
+
+  <!-- ============ PAGE HEADER ============ -->
+  <section class="page-hero">
+    <div class="moon small" aria-hidden="true"></div>
+    <div class="scan" aria-hidden="true"></div>
+    <div class="page-hero-inner">
+      <p class="file mono"><a href="../">DYLAN'S COLLECTION</a> / BOOKINGS · 撮影予約</p>
+      <h1 class="title red" data-text="BOOK A SHOOT">BOOK A SHOOT</h1>
+      <p class="quote">“Become the next fine addition.”</p>
+    </div>
+  </section>
+
+  <!-- ============ BOOKING FORM ============ -->
+  <!-- Everything here comes from content/photo.json → booking (edit it in Pages CMS) -->
+  <section class="section booking">
+    <header class="section-head">
+      <h2><span class="num">約</span> Acquisition Request <small>予約フォーム · FILL IN THE FILE</small></h2>
+    </header>
+    <div id="booking-intro" class="booking-intro"></div>
+
+    <div id="booking-form" class="booking-frame" hidden></div>
+    <p id="booking-newtab" class="booking-newtab" hidden>
+      Form not showing? <a target="_blank" rel="noopener">Open it in a new tab ↗</a>
+    </p>
+
+    <div id="booking-fallback" class="contact-card" hidden>
+      <p class="file mono">// BOOKINGS OPENING SOON</p>
+      <h2>The booking form isn't up yet.</h2>
+      <p>Email me with the date, location and type of shoot and I'll get back to you.</p>
+      <div class="contact-links" id="contact-links">
+        <a class="btn" data-href="contact.email|mailto:">✉ Email</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>© <span class="year"></span> Dylan's Collection · an <a href="../../">Aten Productions</a> brand</p>
+  </footer>
+
+  <script src="../../js/content.js"></script>
+  <script src="../js/photo.js"></script>
+</body>
+</html>

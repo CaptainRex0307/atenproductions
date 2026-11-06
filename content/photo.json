@@ -15,6 +15,10 @@
       { "label": "Instagram", "url": "https://www.instagram.com/" }
     ]
   },
+  "booking": {
+    "form_url": "",
+    "intro": "Portraits, cosplay, events, night shoots. Fill in the form with what you have in mind and I'll get back to you to lock in a date."
+  },
   "photos": [
     { "image": "", "title": "The Midnight Platform", "category": "Night",     "date": "2026.10", "shape": "auto", "trophy": true },
     { "image": "", "title": "Faceless Crowd",        "category": "Street",    "date": "2026.09", "shape": "auto", "trophy": false },

@@ -15,7 +15,7 @@ The owner edits content through **Pages CMS** (app.pagescms.org), which commits 
 
 ## Map
 - `content/aten.json` → `index.html` (rendered by `js/aten.js`)
-- `content/photo.json` → `photography/index.html` (Trophy Room: photos with `trophy: true`) and `photography/collection/` (all photos), rendered by `photography/js/photo.js`
+- `content/photo.json` → `photography/index.html` (Trophy Room: photos with `trophy: true`) `photography/collection/` (all photos) and `photography/book/` (booking page: embeds `booking.form_url`, a Google Form), rendered by `photography/js/photo.js`
 - `js/content.js` → shared loader; each page sets `<html data-root="...">` = path back to the site root
 - `media/` → CMS uploads, stored in JSON as `/media/<file>` (resolved relative to the page, since the site lives under `/atenproductions/`)
 - Preview: `python3 -m http.server` from the repo root (content won't load over file://)

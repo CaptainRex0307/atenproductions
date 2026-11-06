@@ -143,3 +143,12 @@ content:
             fields:
               - { name: label, label: "Name (e.g. Instagram)", type: string }
               - { name: url, label: "Link (https://...)", type: string }
+      - name: booking
+        label: Bookings (Book a Shoot page)
+        type: object
+        fields:
+          - name: form_url
+            label: Google Form link
+            description: "In Google Forms click Send → the link icon → untick 'Shorten URL' → Copy, and paste it here (the full link lets the form show right on the page). Leave empty and the page asks people to email instead."
+            type: string
+          - { name: intro, label: Text above the form, type: text }

@@ -184,6 +184,32 @@ function init(d) {
   if (portrait && d.portrait) portrait.outerHTML = `<img src="${esc(Site.asset(d.portrait))}" alt="${esc(d.name || "The curator")}">`;
   const links = document.getElementById("contact-links");
   if (links) links.insertAdjacentHTML("beforeend", Site.socials(d.contact?.socials, "btn ghost").join(""));
+  booking(d.booking);
+}
+
+// ---------- Book a Shoot page ----------
+function booking(b) {
+  const box = document.getElementById("booking-form");
+  if (!box) return;
+  document.getElementById("booking-intro").innerHTML = Site.paragraphs(b?.intro);
+  const url = String(b?.form_url || "").trim();
+  if (!/^https?:\/\//i.test(url)) {               // no form yet → ask people to email
+    document.getElementById("booking-fallback").hidden = false;
+    return;
+  }
+  const newTab = document.getElementById("booking-newtab");
+  newTab.querySelector("a").href = url;
+  // Full Google Forms links can be shown right on the page
+  const g = url.match(/^https:\/\/docs\.google\.com\/forms\/(?:u\/\d+\/)?d\/(e\/)?([\w-]+)/);
+  if (g) {
+    const src = `https://docs.google.com/forms/d/${g[1] || ""}${g[2]}/viewform?embedded=true`;
+    box.innerHTML = `<iframe src="${esc(src)}" title="Booking form" loading="lazy">Loading…</iframe>`;
+    newTab.hidden = false;
+  } else {                                          // short forms.gle links etc. → a big button
+    box.classList.add("as-button");
+    box.innerHTML = `<a class="btn" href="${esc(url)}" target="_blank" rel="noopener">Open the booking form ↗</a>`;
+  }
+  box.hidden = false;
 }
 Site.load("photo").then(init).catch(Site.fail);
 document.querySelectorAll(".year").forEach((el) => (el.textContent = new Date().getFullYear()));
