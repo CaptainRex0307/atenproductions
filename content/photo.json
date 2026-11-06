@@ -16,8 +16,17 @@
     ]
   },
   "booking": {
-    "form_url": "",
-    "intro": "Portraits, cosplay, events, night shoots. Fill in the form with what you have in mind and I'll get back to you to lock in a date."
+    "intro": "Portraits, cosplay, events, night shoots. Fill in the form with what you have in mind and I'll get back to you to lock in a date.",
+    "convention": {
+      "title": "Convention Shoot",
+      "text": "Catching me at an upcoming con? Pick the convention and day, tell me your character, and we'll set a time to meet.",
+      "form_url": ""
+    },
+    "anytime": {
+      "title": "Any Time",
+      "text": "Portraits, cosplay, events or night shoots on a date that works for you.",
+      "form_url": ""
+    }
   },
   "photos": [
     { "image": "", "title": "The Midnight Platform", "category": "Night",     "date": "2026.10", "shape": "auto", "trophy": true },

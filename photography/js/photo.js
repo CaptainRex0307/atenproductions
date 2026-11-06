@@ -188,28 +188,56 @@ function init(d) {
 }
 
 // ---------- Book a Shoot page ----------
+// Two Google Forms: booking.convention and booking.anytime. Options without a link are hidden.
+const BOOKING_TYPES = [
+  { key: "convention", jp: "イベント撮影", fallback: "Convention Shoot" },
+  { key: "anytime",    jp: "通常撮影",     fallback: "Any Time" },
+];
+const isUrl = (u) => /^https?:\/\//i.test(String(u || "").trim());
+
 function booking(b) {
   const box = document.getElementById("booking-form");
   if (!box) return;
   document.getElementById("booking-intro").innerHTML = Site.paragraphs(b?.intro);
-  const url = String(b?.form_url || "").trim();
-  if (!/^https?:\/\//i.test(url)) {               // no form yet → ask people to email
+  const options = BOOKING_TYPES.map((t) => ({ ...t, ...(b?.[t.key] || {}) })).filter((o) => isUrl(o.form_url));
+  if (!options.length) {                             // no forms yet → ask people to email
     document.getElementById("booking-fallback").hidden = false;
     return;
   }
+  const choices = document.getElementById("booking-choices");
+  choices.innerHTML = options.map((o) => `
+    <button class="booking-choice" role="tab" data-key="${o.key}" aria-selected="false">
+      <small>${esc(o.jp)}</small>
+      <b>${esc(o.title || o.fallback)}</b>
+      ${o.text ? `<span>${esc(o.text)}</span>` : ""}
+    </button>`).join("");
+  choices.hidden = false;
+  choices.querySelectorAll(".booking-choice").forEach((btn) =>
+    btn.addEventListener("click", () => { showForm(options.find((o) => o.key === btn.dataset.key)); history.replaceState(null, "", "#" + btn.dataset.key); }));
+  // Open the one named in the link (#convention / #anytime), else the first
+  showForm(options.find((o) => "#" + o.key === location.hash) || options[0]);
+}
+
+function showForm(o) {
+  const box = document.getElementById("booking-form");
   const newTab = document.getElementById("booking-newtab");
+  document.querySelectorAll(".booking-choice").forEach((btn) => btn.setAttribute("aria-selected", btn.dataset.key === o.key));
+  const url = String(o.form_url).trim();
   newTab.querySelector("a").href = url;
   // Full Google Forms links can be shown right on the page
   const g = url.match(/^https:\/\/docs\.google\.com\/forms\/(?:u\/\d+\/)?d\/(e\/)?([\w-]+)/);
   if (g) {
     const src = `https://docs.google.com/forms/d/${g[1] || ""}${g[2]}/viewform?embedded=true`;
-    box.innerHTML = `<iframe src="${esc(src)}" title="Booking form" loading="lazy">Loading…</iframe>`;
+    box.className = "booking-frame";
+    box.innerHTML = `<iframe src="${esc(src)}" title="${esc(o.title || o.fallback)} booking form" loading="lazy">Loading…</iframe>`;
     newTab.hidden = false;
   } else {                                          // short forms.gle links etc. → a big button
-    box.classList.add("as-button");
-    box.innerHTML = `<a class="btn" href="${esc(url)}" target="_blank" rel="noopener">Open the booking form ↗</a>`;
+    box.className = "booking-frame as-button";
+    box.innerHTML = `<a class="btn" href="${esc(url)}" target="_blank" rel="noopener">Open the ${esc(o.title || o.fallback)} form ↗</a>`;
+    newTab.hidden = true;
   }
   box.hidden = false;
 }
+
 Site.load("photo").then(init).catch(Site.fail);
 document.querySelectorAll(".year").forEach((el) => (el.textContent = new Date().getFullYear()));

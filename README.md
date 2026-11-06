@@ -19,7 +19,8 @@ Tips
 - Drag list items to reorder them. The top photo is No. 001.
 - Tick **In the Trophy Room** on up to 5 photos to feature them on the photo home page.
 - Leave **Panel shape** on *auto* and the gallery arranges itself.
-- **Bookings:** paste your Google Form link under *Bookings*. In Google Forms: **Send → link icon → untick "Shorten URL" → Copy**. The full link shows the form right on the page; a short forms.gle link becomes a button instead.
+- **Bookings:** there are two Google Form slots under *Bookings*: **Convention bookings** and **Any-time bookings**. In Google Forms: **Send → link icon → untick "Shorten URL" → Copy**, then paste. The full link shows the form right on the page; a short forms.gle link becomes a button instead. Leave a link empty to hide that option.
+  Direct links: `photography/book/#convention` and `photography/book/#anytime`.
 
 ## How it's built
 

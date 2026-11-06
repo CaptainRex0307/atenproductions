@@ -147,8 +147,24 @@ content:
         label: Bookings (Book a Shoot page)
         type: object
         fields:
-          - name: form_url
-            label: Google Form link
-            description: "In Google Forms click Send → the link icon → untick 'Shorten URL' → Copy, and paste it here (the full link lets the form show right on the page). Leave empty and the page asks people to email instead."
-            type: string
-          - { name: intro, label: Text above the form, type: text }
+          - { name: intro, label: Text at the top of the page, type: text }
+          - name: convention
+            label: Convention bookings
+            type: object
+            fields:
+              - { name: title, label: Button title, type: string }
+              - { name: text, label: Short description, type: text }
+              - name: form_url
+                label: Google Form link (conventions)
+                description: "In Google Forms click Send → link icon → untick 'Shorten URL' → Copy, and paste it here. Leave empty to hide this option."
+                type: string
+          - name: anytime
+            label: Any-time bookings
+            type: object
+            fields:
+              - { name: title, label: Button title, type: string }
+              - { name: text, label: Short description, type: text }
+              - name: form_url
+                label: Google Form link (any time)
+                description: "In Google Forms click Send → link icon → untick 'Shorten URL' → Copy, and paste it here. Leave empty to hide this option."
+                type: string
