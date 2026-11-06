@@ -15,7 +15,7 @@
   --text: #d9d4c7;
   --muted: #8d8a82;
   --tally: #ff3b3b;
-  --sakura: #ff8fb1;
+  --sakura: #e0283a; /* photo-brand accent (Dylan's Collection red) */
 
   --f-display: "Cinzel", Georgia, serif;
   --f-body: "Inter", system-ui, sans-serif;
@@ -55,8 +55,8 @@ img { max-width: 100%; display: block; }
 .btn-gold:hover { background: var(--gold-2); color: var(--night); box-shadow: 0 0 30px rgba(212,165,55,.5); }
 .btn-ghost { color: var(--gold); background: transparent; }
 .btn-ghost:hover { background: rgba(212,165,55,.12); color: var(--gold-2); }
-.btn-sakura { background: var(--sakura); border-color: var(--sakura); color: #1a1a2e; }
-.btn-sakura:hover { background: #ffb3cb; color: #1a1a2e; }
+.btn-sakura { background: var(--sakura); border-color: var(--sakura); color: var(--sand); }
+.btn-sakura:hover { background: #ff3b4d; color: #fff; box-shadow: 0 0 30px rgba(224,40,58,.5); }
 
 /* ---------- Nav ---------- */
 .nav {
@@ -255,13 +255,13 @@ img { max-width: 100%; display: block; }
   padding: 6rem clamp(1rem, 6vw, 5rem);
   text-align: center;
   background:
-    radial-gradient(circle at 50% 120%, rgba(255,143,177,.25), transparent 60%),
-    linear-gradient(180deg, var(--night), #1a1024);
+    radial-gradient(circle at 50% 120%, rgba(224,40,58,.28), transparent 60%),
+    linear-gradient(180deg, var(--night), #1a0709);
   overflow: hidden;
 }
 .crossover::after {
   content: ""; position: absolute; inset: 0;
-  background-image: radial-gradient(rgba(255,143,177,.25) 1px, transparent 1.5px);
+  background-image: radial-gradient(rgba(224,40,58,.3) 1px, transparent 1.5px);
   background-size: 14px 14px;
   mask-image: radial-gradient(circle at 50% 100%, #000, transparent 65%);
   pointer-events: none;

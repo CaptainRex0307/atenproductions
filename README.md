@@ -1,4 +1,4 @@
-# Aten Productions + Kōsen Photo portfolio
+# Aten Productions + Dylan's Collection portfolio
 
 Plain HTML, CSS and JS. No build step.
 
@@ -6,7 +6,7 @@ Plain HTML, CSS and JS. No build step.
 index.html               → Aten Productions (main page: TD / video engineering)
 css/aten.css, js/aten.js
 assets/                  → put resume.pdf and project stills here
-photography/index.html   → Kōsen Photo (anime-themed photography sub-brand)
+photography/index.html   → Dylan's Collection (anime-horror photography sub-brand)
 photography/css, js
 photography/images/      → put your photos here
 ```
