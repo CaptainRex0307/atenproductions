@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Collection — Dylan's Collection</title>
+  <meta name="description" content="The full archive of Dylan's Collection. Every piece, catalogued.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Shippori+Mincho+B1:wght@600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/photo.css">
+</head>
+<body>
+  <canvas id="ash" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav">
+    <a href="../" class="logo" aria-label="Dylan's Collection home">
+      <span class="logo-seal">蒐</span>
+      <span class="logo-en">DYLAN'S<b>COLLECTION</b></span>
+    </a>
+    <nav class="nav-links">
+      <a href="../#prized">Most Valuable</a>
+      <a href="./" aria-current="page">The Collection</a>
+      <a href="../#curator">The Curator</a>
+      <a href="../#contact">Contact</a>
+      <a href="../../" class="back">← Aten Productions</a>
+    </nav>
+  </header>
+
+  <!-- ============ PAGE HEADER ============ -->
+  <section class="page-hero">
+    <div class="moon small" aria-hidden="true"></div>
+    <div class="scan" aria-hidden="true"></div>
+    <div class="page-hero-inner">
+      <p class="file mono"><a href="../">DYLAN'S COLLECTION</a> / ARCHIVE · 収蔵品目録</p>
+      <h1 class="title red" data-text="THE COLLECTION">THE COLLECTION</h1>
+      <p class="quote">“Another fine addition to the collection.”</p>
+      <p class="file mono"><span data-count>000</span> PIECES CATALOGUED · ★ = MOST VALUABLE</p>
+    </div>
+  </section>
+
+  <!-- ============ FULL GALLERY ============ -->
+  <section id="collection" class="section">
+    <header class="section-head">
+      <h2><span class="num">全</span> Every Piece <small>全収蔵品 · FILTER THE ARCHIVE</small></h2>
+      <div class="filters" role="tablist" aria-label="Filter the collection"></div>
+    </header>
+    <!-- Photos come from ../js/collection-data.js. data-base points from this page back to photography/ -->
+    <div class="manga-grid" id="grid" data-mode="all" data-base="../"></div>
+  </section>
+
+  <section class="section contact">
+    <div class="contact-card">
+      <p class="file mono">// NEW ACQUISITION REQUEST</p>
+      <h2>Want to join the collection?</h2>
+      <p>Portraits, cosplay, events, night shoots. If it's worth keeping, I want to shoot it.</p>
+      <div class="contact-links">
+        <a class="btn" href="mailto:photo@atenproductions.com">✉ Email</a>
+        <a class="btn ghost" href="../">← Back to Dylan's Collection</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>© <span class="year"></span> Dylan's Collection · an <a href="../../">Aten Productions</a> brand</p>
+  </footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" hidden>
+    <button class="lb-close" aria-label="Close">✕</button>
+    <button class="lb-nav prev" aria-label="Previous">‹</button>
+    <figure>
+      <div class="lb-media" id="lb-media"></div>
+      <figcaption id="lb-cap"></figcaption>
+    </figure>
+    <button class="lb-nav next" aria-label="Next">›</button>
+  </div>
+
+  <script src="../js/collection-data.js"></script>
+  <script src="../js/photo.js"></script>
+</body>
+</html>

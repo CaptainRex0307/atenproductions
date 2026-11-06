@@ -1,26 +1,9 @@
 // =============================================================
-// DYLAN'S COLLECTION: edit your gallery here.
-//   src:    path to the photo, e.g. "images/alley.jpg" (leave "" for a placeholder)
-//   title:  caption shown on the panel and in the lightbox
-//   cat:    category, used for the filter buttons (they're built automatically)
-//   date:   when it was "acquired" (shown under the title)
-//   size:   "" | "wide" | "tall" | "big"  (controls the panel shape)
-// This order tiles the 6-column grid with no gaps: big,_,_ | wide,_ | tall,_,_,wide
-// Pieces are numbered automatically (No. 001, No. 002, ...).
+// DYLAN'S COLLECTION: page behaviour.
+// Your photos live in js/collection-data.js; you shouldn't need to edit this file.
 // =============================================================
-const PHOTOS = [
-  { src: "", title: "The Midnight Platform", cat: "Night",     date: "2026.10", size: "big"  },
-  { src: "", title: "Faceless Crowd",        cat: "Street",    date: "2026.09", size: ""     },
-  { src: "", title: "Red Room Portrait",     cat: "Portraits", date: "2026.08", size: ""     },
-  { src: "", title: "Fog Over the Overpass", cat: "Urban",     date: "2026.07", size: "wide" },
-  { src: "", title: "The Masked Guest",      cat: "Cosplay",   date: "2026.06", size: ""     },
-  { src: "", title: "Stairwell No. 4",       cat: "Urban",     date: "2026.05", size: "tall" },
-  { src: "", title: "Neon Bleeds",           cat: "Night",     date: "2026.04", size: ""     },
-  { src: "", title: "Still Watching",        cat: "Portraits", date: "2026.03", size: ""     },
-  { src: "", title: "Last Train Home",       cat: "Street",    date: "2026.02", size: "wide" },
-];
 
-// Placeholder gradients (horror palettes)
+// Placeholder gradients (horror palettes) used when a photo has no src
 const GRADIENTS = [
   "radial-gradient(circle at 70% 30%,#ff2a3a66,transparent 45%),linear-gradient(170deg,#5a1018,#120809 75%)",
   "radial-gradient(circle at 30% 20%,#9fd35633,transparent 40%),linear-gradient(200deg,#2c3d35,#0b0809 80%)",
@@ -28,64 +11,76 @@ const GRADIENTS = [
   "radial-gradient(circle at 50% 10%,#ece3d433,transparent 45%),linear-gradient(180deg,#3d3739,#0f0c0d 85%)",
   "radial-gradient(circle at 60% 70%,#ff2a3a44,transparent 45%),linear-gradient(190deg,#1f2629,#080607)",
 ];
+// Panel shapes for the "Most Valuable" grid, by position
+const FAV_LAYOUT = ["big", "", "", "wide", ""];
 
 const pad = (n) => String(n).padStart(3, "0");
 const grid = document.getElementById("grid");
+const mode = grid ? grid.dataset.mode : null;          // "favorites" | "all"
+const base = (grid && grid.dataset.base) || "";        // path from this page to photography/
 const filters = document.querySelector(".filters");
+
+// Each entry keeps its catalogue number from the full list
+const items = PHOTOS.map((p, i) => ({ ...p, no: i + 1, g: GRADIENTS[i % GRADIENTS.length] }))
+  .filter((p) => mode !== "favorites" || p.fav);
 let visible = [];
 
-function media(p, i) {
+function media(p) {
   return p.src
-    ? `<img src="${p.src}" alt="${p.title}" loading="lazy">`
-    : `<div class="ph" style="--g:${GRADIENTS[i % GRADIENTS.length]}"></div>`;
+    ? `<img src="${base}${p.src}" alt="${p.title}" loading="lazy">`
+    : `<div class="ph" style="--g:${p.g}"></div>`;
 }
 
 function render() {
-  PHOTOS.forEach((p, i) => {
+  if (!grid) return;
+  items.forEach((p, i) => {
+    const size = mode === "favorites" ? (FAV_LAYOUT[i] ?? "") : (p.size || "");
     const el = document.createElement("figure");
-    el.className = `panel ${p.size || ""}`;
+    el.className = `panel ${size}`;
     el.dataset.cat = p.cat;
     el.dataset.index = i;
     el.style.animationDelay = `${i * 60}ms`;
     el.tabIndex = 0;
     el.setAttribute("role", "button");
     el.setAttribute("aria-label", `Open ${p.title}`);
-    el.innerHTML = `${media(p, i)}
-      <span class="tag">No. ${pad(i + 1)}</span>
+    el.innerHTML = `${media(p)}
+      <span class="tag${p.fav ? " fav" : ""}">No. ${pad(p.no)}${p.fav ? " ★" : ""}</span>
       <figcaption class="label"><small>${p.cat.toUpperCase()} · ACQUIRED ${p.date || ""}</small>${p.title}</figcaption>`;
     el.addEventListener("click", () => openLB(i));
     el.addEventListener("keydown", (e) => { if (e.key === "Enter") openLB(i); });
     grid.appendChild(el);
   });
+  visible = items.map((_, i) => i);
 
-  ["All", ...new Set(PHOTOS.map((p) => p.cat))].forEach((c) => {
-    const b = document.createElement("button");
-    b.textContent = c;
-    b.setAttribute("role", "tab");
-    b.setAttribute("aria-selected", c === "All");
-    b.addEventListener("click", () => setFilter(c));
-    filters.appendChild(b);
-  });
-  visible = PHOTOS.map((_, i) => i);
+  if (filters) {
+    ["All", "★ Most Valuable", ...new Set(items.map((p) => p.cat))].forEach((c) => {
+      const b = document.createElement("button");
+      b.textContent = c;
+      b.setAttribute("role", "tab");
+      b.setAttribute("aria-selected", c === "All");
+      b.addEventListener("click", () => setFilter(c));
+      filters.appendChild(b);
+    });
+  }
 }
 
 function setFilter(cat) {
   filters.querySelectorAll("button").forEach((b) => b.setAttribute("aria-selected", b.textContent === cat));
   visible = [];
   grid.querySelectorAll(".panel").forEach((el) => {
-    const show = cat === "All" || el.dataset.cat === cat;
+    const p = items[+el.dataset.index];
+    const show = cat === "All" || (cat.startsWith("★") ? p.fav : p.cat === cat);
     el.classList.toggle("hide", !show);
     if (show) visible.push(+el.dataset.index);
   });
 }
 
-// ---------- Acquisition counter ----------
-(function counter() {
-  const el = document.getElementById("count");
+// ---------- Acquisition counters ----------
+document.querySelectorAll("[data-count]").forEach((el) => {
   const target = PHOTOS.length;
   let n = 0;
   const t = setInterval(() => { el.textContent = pad(++n); if (n >= target) clearInterval(t); }, 90);
-})();
+});
 
 // ---------- Lightbox ----------
 const lb = document.getElementById("lightbox");
@@ -95,9 +90,9 @@ let current = 0;
 
 function openLB(i) {
   current = i;
-  const p = PHOTOS[i];
-  lbMedia.innerHTML = media(p, i);
-  lbCap.innerHTML = `<small>No. ${pad(i + 1)} · ${p.cat.toUpperCase()}</small>${p.title}`;
+  const p = items[i];
+  lbMedia.innerHTML = media(p);
+  lbCap.innerHTML = `<small>No. ${pad(p.no)} · ${p.cat.toUpperCase()}${p.fav ? " · MOST VALUABLE" : ""}</small>${p.title}`;
   lb.hidden = false;
   document.body.style.overflow = "hidden";
 }
@@ -106,16 +101,18 @@ function step(dir) {
   const pos = visible.indexOf(current);
   openLB(visible[(pos + dir + visible.length) % visible.length]);
 }
-lb.querySelector(".lb-close").addEventListener("click", closeLB);
-lb.querySelector(".prev").addEventListener("click", () => step(-1));
-lb.querySelector(".next").addEventListener("click", () => step(1));
-lb.addEventListener("click", (e) => { if (e.target === lb) closeLB(); });
-document.addEventListener("keydown", (e) => {
-  if (lb.hidden) return;
-  if (e.key === "Escape") closeLB();
-  if (e.key === "ArrowLeft") step(-1);
-  if (e.key === "ArrowRight") step(1);
-});
+if (lb) {
+  lb.querySelector(".lb-close").addEventListener("click", closeLB);
+  lb.querySelector(".prev").addEventListener("click", () => step(-1));
+  lb.querySelector(".next").addEventListener("click", () => step(1));
+  lb.addEventListener("click", (e) => { if (e.target === lb) closeLB(); });
+  document.addEventListener("keydown", (e) => {
+    if (lb.hidden) return;
+    if (e.key === "Escape") closeLB();
+    if (e.key === "ArrowLeft") step(-1);
+    if (e.key === "ArrowRight") step(1);
+  });
+}
 
 // ---------- The eye follows you ----------
 (function eye() {
@@ -134,8 +131,8 @@ document.addEventListener("keydown", (e) => {
 
 // ---------- Drifting ash & embers ----------
 (function ash() {
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   const c = document.getElementById("ash");
+  if (!c || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   const ctx = c.getContext("2d");
   let W, H;
   const resize = () => { W = c.width = innerWidth; H = c.height = innerHeight; };
@@ -165,4 +162,4 @@ document.addEventListener("keydown", (e) => {
 })();
 
 render();
-document.getElementById("year").textContent = new Date().getFullYear();
+document.querySelectorAll(".year").forEach((el) => (el.textContent = new Date().getFullYear()));

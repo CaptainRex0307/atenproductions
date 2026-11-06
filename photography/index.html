@@ -21,7 +21,8 @@
       <span class="logo-en">DYLAN'S<b>COLLECTION</b></span>
     </a>
     <nav class="nav-links">
-      <a href="#collection">The Collection</a>
+      <a href="#prized">Most Valuable</a>
+      <a href="collection/">The Collection</a>
       <a href="#curator">The Curator</a>
       <a href="#contact">Contact</a>
       <a href="../" class="back">← Aten Productions</a>
@@ -35,13 +36,13 @@
     <p class="vert" aria-hidden="true">ディランのコレクション</p>
 
     <div class="hero-inner">
-      <p class="file mono">ARCHIVE FILE · 収蔵品目録 · <span id="count">000</span> PIECES ACQUIRED</p>
+      <p class="file mono">ARCHIVE FILE · 収蔵品目録 · <span data-count>000</span> PIECES ACQUIRED</p>
       <h1 class="title" data-text="DYLAN'S">DYLAN'S</h1>
       <h1 class="title red" data-text="COLLECTION">COLLECTION</h1>
       <p class="quote">"Another fine addition<br>to the collection."</p>
       <p class="lede">Photography by <b>[Your Name]</b>. Every frame I keep is a trophy: shadows, streets,
         strangers and the things that move after midnight.</p>
-      <a href="#collection" class="btn">Enter the Archive ▼</a>
+      <a href="#prized" class="btn">Enter the Archive ▼</a>
     </div>
 
     <div class="eye-wrap" aria-hidden="true">
@@ -62,25 +63,28 @@
           <rect class="blink" x="0" y="-100" width="200" height="100" fill="#0a0708"/>
         </g>
         <path class="eye-line" d="M5 50 Q100 -12 195 50 Q100 112 5 50Z"/>
-        <path class="lash" d="M30 30 L18 14 M55 18 L48 2 M85 12 L83 -4 M115 12 L118 -4 M145 18 L152 2 M170 30 L183 15"/>
       </svg>
       <span class="sfx">ギロッ</span>
     </div>
   </section>
 
   <div class="tape" aria-hidden="true">
-    <span>⚠ DO NOT DISTURB THE COLLECTION ⚠ 収集中 ⚠ ANOTHER FINE ADDITION ⚠ DO NOT DISTURB THE COLLECTION ⚠ 収集中 ⚠ ANOTHER FINE ADDITION&nbsp;</span>
-    <span>⚠ DO NOT DISTURB THE COLLECTION ⚠ 収集中 ⚠ ANOTHER FINE ADDITION ⚠ DO NOT DISTURB THE COLLECTION ⚠ 収集中 ⚠ ANOTHER FINE ADDITION&nbsp;</span>
+    <span>“Another fine addition to the collection.” <i>蒐</i> “Another fine addition to the collection.” <i>蒐</i> “Another fine addition to the collection.” <i>蒐</i> “Another fine addition to the collection.” <i>蒐</i> </span>
+    <span>“Another fine addition to the collection.” <i>蒐</i> “Another fine addition to the collection.” <i>蒐</i> “Another fine addition to the collection.” <i>蒐</i> “Another fine addition to the collection.” <i>蒐</i> </span>
   </div>
 
-  <!-- ============ COLLECTION / GALLERY ============ -->
-  <section id="collection" class="section">
+  <!-- ============ MOST VALUABLE ============ -->
+  <section id="prized" class="section">
     <header class="section-head">
-      <h2><span class="num">壱</span> The Collection <small>収蔵品 · CATALOGUED ACQUISITIONS</small></h2>
-      <div class="filters" role="tablist" aria-label="Filter the collection"></div>
+      <h2><span class="num">壱</span> Most Valuable <small>至宝 · THE PRIZED PIECES</small></h2>
+      <a href="collection/" class="btn ghost">View the Full Collection →</a>
     </header>
-    <!-- Photos are listed in js/photo.js — edit the PHOTOS array there. -->
-    <div class="manga-grid" id="grid"></div>
+    <!-- Shows photos marked fav: true in js/collection-data.js -->
+    <div class="manga-grid" id="grid" data-mode="favorites"></div>
+    <div class="section-cta">
+      <p class="file mono"><span data-count>000</span> PIECES IN THE ARCHIVE</p>
+      <a href="collection/" class="btn">Browse All Pieces →</a>
+    </div>
   </section>
 
   <!-- ============ CURATOR ============ -->
@@ -119,7 +123,7 @@
   </section>
 
   <footer class="footer">
-    <p>© <span id="year"></span> Dylan's Collection · an <a href="../">Aten Productions</a> brand</p>
+    <p>© <span class="year"></span> Dylan's Collection · an <a href="../">Aten Productions</a> brand</p>
   </footer>
 
   <!-- Lightbox -->
@@ -133,6 +137,7 @@
     <button class="lb-nav next" aria-label="Next">›</button>
   </div>
 
+  <script src="js/collection-data.js"></script>
   <script src="js/photo.js"></script>
 </body>
 </html>
