@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-root="">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -49,8 +49,7 @@
     <div class="hero-inner">
       <p class="eyebrow mono">// FREELANCE · LIVE · BROADCAST · STREAM</p>
       <h1>Technical Direction<br><span class="gold">&amp; Video Engineering</span></h1>
-      <p class="lede">I'm <strong>[Your Name]</strong>. Through Aten Productions I bring clean signal, steady shows and
-        calm under pressure to live events, broadcasts and productions of every size.</p>
+      <p class="lede">I'm <strong data-bind="name"></strong>. <span data-bind="hero_text"></span></p>
       <div class="cta-row">
         <a href="#contact" class="btn btn-gold">Book a Production</a>
         <a href="#work" class="btn btn-ghost">View Work</a>
@@ -61,8 +60,8 @@
     <aside class="monitor mono" aria-label="Status readout">
       <div class="mon-row"><span class="tally"></span> PGM <b>ON AIR</b></div>
       <div class="mon-row">TC <b id="timecode">00:00:00:00</b></div>
-      <div class="mon-row">FMT <b>2160p 59.94</b></div>
-      <div class="mon-row">LINK <b>12G-SDI</b></div>
+      <div class="mon-row">FMT <b data-bind="monitor.format"></b></div>
+      <div class="mon-row">LINK <b data-bind="monitor.link"></b></div>
       <div class="bars" aria-hidden="true">
         <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
       </div>
@@ -77,38 +76,7 @@
       <p class="mono kicker">01 / SERVICES</p>
       <h2>What I Bring to the Show</h2>
     </header>
-    <div class="cards">
-      <article class="card">
-        <div class="glyph">𓂀</div>
-        <h3>Technical Direction</h3>
-        <p>Switching, show calling and running the technical side of the production so the creative team can focus on the story.</p>
-      </article>
-      <article class="card">
-        <div class="glyph">𓋹</div>
-        <h3>Video Engineering</h3>
-        <p>Camera shading &amp; matching, CCU control, color and exposure so every angle looks like the same show.</p>
-      </article>
-      <article class="card">
-        <div class="glyph">𓊽</div>
-        <h3>Systems &amp; Signal Flow</h3>
-        <p>Design, build and troubleshooting of routing, conversion, sync/genlock and fiber, documented and labeled.</p>
-      </article>
-      <article class="card">
-        <div class="glyph">𓇳</div>
-        <h3>Streaming &amp; Broadcast</h3>
-        <p>Encoders, multi-destination streams, ISO records and redundancy plans built to stay on air.</p>
-      </article>
-      <article class="card">
-        <div class="glyph">𓆣</div>
-        <h3>LED &amp; Projection</h3>
-        <p>Processor setup, content mapping, scaling and IMAG for stages, conferences and worship.</p>
-      </article>
-      <article class="card">
-        <div class="glyph">𓏏</div>
-        <h3>Consulting &amp; Training</h3>
-        <p>Spec'ing gear, planning upgrades, and training volunteer or in-house crews to run with confidence.</p>
-      </article>
-    </div>
+    <div class="cards" id="services-list"><!-- filled from content/aten.json --></div>
   </section>
 
   <!-- ============ WORK ============ -->
@@ -117,45 +85,7 @@
       <p class="mono kicker">02 / SELECTED WORK</p>
       <h2>Productions</h2>
     </header>
-    <div class="work-grid">
-      <!-- Duplicate an <article class="work"> block per project. Replace the .work-media div with an <img> when you have stills. -->
-      <article class="work">
-        <div class="work-media" style="--h:205"><span class="mono">PROJECT STILL</span></div>
-        <div class="work-body">
-          <p class="mono meta">2026 · LIVE EVENT</p>
-          <h3>[Project Name]</h3>
-          <p>Role: Technical Director. 6-camera multicam show with live stream and IMAG to a 40 ft LED wall.</p>
-          <ul class="tags"><li>Switching</li><li>IMAG</li><li>Stream</li></ul>
-        </div>
-      </article>
-      <article class="work">
-        <div class="work-media" style="--h:35"><span class="mono">PROJECT STILL</span></div>
-        <div class="work-body">
-          <p class="mono meta">2025 · BROADCAST</p>
-          <h3>[Project Name]</h3>
-          <p>Role: Video Engineer. Shaded 8 system cameras for a regional sports broadcast.</p>
-          <ul class="tags"><li>Shading</li><li>CCU</li><li>Sports</li></ul>
-        </div>
-      </article>
-      <article class="work">
-        <div class="work-media" style="--h:170"><span class="mono">PROJECT STILL</span></div>
-        <div class="work-body">
-          <p class="mono meta">2025 · INSTALL</p>
-          <h3>[Project Name]</h3>
-          <p>Role: Systems Designer. Designed and commissioned a control room with SDI/NDI hybrid routing.</p>
-          <ul class="tags"><li>Design</li><li>Routing</li><li>NDI</li></ul>
-        </div>
-      </article>
-      <article class="work">
-        <div class="work-media" style="--h:265"><span class="mono">PROJECT STILL</span></div>
-        <div class="work-body">
-          <p class="mono meta">2024 · CONFERENCE</p>
-          <h3>[Project Name]</h3>
-          <p>Role: TD / Streaming Engineer. Three-day hybrid conference with remote presenters and 4 simultaneous streams.</p>
-          <ul class="tags"><li>Hybrid</li><li>Encoding</li><li>Remote</li></ul>
-        </div>
-      </article>
-    </div>
+    <div class="work-grid" id="work-list"><!-- filled from content/aten.json --></div>
   </section>
 
   <!-- ============ RIG ============ -->
@@ -164,25 +94,7 @@
       <p class="mono kicker">03 / THE RIG</p>
       <h2>Tools I Run</h2>
     </header>
-    <div class="spec">
-      <div class="spec-col">
-        <h4 class="mono">SWITCHERS</h4>
-        <ul><li>Ross Carbonite / Acuity</li><li>Blackmagic ATEM</li><li>Grass Valley</li><li>vMix · OBS</li></ul>
-      </div>
-      <div class="spec-col">
-        <h4 class="mono">CAMERAS &amp; SHADING</h4>
-        <ul><li>Sony system cameras / RCP</li><li>Blackmagic URSA / Studio</li><li>PTZ (Panasonic, Sony)</li><li>Waveform &amp; vectorscope</li></ul>
-      </div>
-      <div class="spec-col">
-        <h4 class="mono">SIGNAL &amp; ROUTING</h4>
-        <ul><li>SDI · fiber · NDI · ST 2110</li><li>Videohub / Ultrix routers</li><li>Sync, genlock &amp; conversion</li><li>Intercom (Clear-Com, RTS)</li></ul>
-      </div>
-      <div class="spec-col">
-        <h4 class="mono">PLAYBACK &amp; DISPLAY</h4>
-        <ul><li>ProPresenter · Resolume</li><li>Novastar / Brompton LED</li><li>Replay &amp; graphics</li><li>Projection blending</li></ul>
-      </div>
-    </div>
-    <p class="mono note">// Edit this list to match your real gear and skills.</p>
+    <div class="spec" id="rig-list"><!-- filled from content/aten.json --></div>
   </section>
 
   <!-- ============ ABOUT / TIMELINE ============ -->
@@ -193,18 +105,10 @@
     </header>
     <div class="about">
       <div class="about-text">
-        <p>Aten was the ancient Egyptian sun disk, the light that reaches everything. That's the idea behind
-          Aten Productions: get every signal where it needs to go, looking its best.</p>
-        <p>[Write 2–3 sentences about yourself: how you got into production, what kinds of shows you love, and what
-          clients can expect working with you.]</p>
-        <a href="assets/resume.pdf" class="btn btn-ghost">Download Résumé</a>
+        <div id="about-text"></div>
+        <a data-href="resume" class="btn btn-ghost" download>Download Résumé</a>
       </div>
-      <ol class="timeline">
-        <li><span class="mono">2026 — NOW</span><h4>Founder, Aten Productions</h4><p>Freelance TD &amp; video engineering.</p></li>
-        <li><span class="mono">20XX — 20XX</span><h4>[Role], [Company]</h4><p>[One line about what you did.]</p></li>
-        <li><span class="mono">20XX — 20XX</span><h4>[Role], [Company]</h4><p>[One line about what you did.]</p></li>
-        <li><span class="mono">20XX</span><h4>[Education / Certification]</h4><p>[School or program.]</p></li>
-      </ol>
+      <ol class="timeline" id="timeline"></ol>
     </div>
   </section>
 
@@ -225,7 +129,7 @@
       <h2>Let's Build Your Show</h2>
     </header>
     <div class="contact">
-      <form class="contact-form" action="mailto:you@atenproductions.com" method="post" enctype="text/plain">
+      <form class="contact-form" id="contact-form" method="post" enctype="text/plain">
         <label>Name<input name="name" required></label>
         <label>Email<input name="email" type="email" required></label>
         <label>Event date &amp; location<input name="event"></label>
@@ -233,10 +137,10 @@
         <button class="btn btn-gold" type="submit">Send Inquiry</button>
       </form>
       <div class="contact-info mono">
-        <p><span>EMAIL</span><a href="mailto:you@atenproductions.com">you@atenproductions.com</a></p>
-        <p><span>PHONE</span>(000) 000-0000</p>
-        <p><span>BASED IN</span>[City, State] · Available to travel</p>
-        <p><span>SOCIAL</span><a href="#">LinkedIn</a> · <a href="#">Instagram</a></p>
+        <p data-optional><span>EMAIL</span><a data-href="contact.email|mailto:" data-bind="contact.email"></a></p>
+        <p data-optional><span>PHONE</span><a data-href="contact.phone|tel:" data-bind="contact.phone"></a></p>
+        <p data-optional><span>BASED IN</span><span class="v" data-bind="contact.location"></span></p>
+        <p data-optional id="socials-row"><span>SOCIAL</span><span class="v" id="socials"></span></p>
       </div>
     </div>
   </section>
@@ -247,6 +151,7 @@
     <a href="photography/">Dylan's Collection ↗</a>
   </footer>
 
+  <script src="js/content.js"></script>
   <script src="js/aten.js"></script>
 </body>
 </html>

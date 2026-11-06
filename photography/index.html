@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-root="../">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,8 +41,7 @@
       <h1 class="title" data-text="DYLAN'S">DYLAN'S</h1>
       <h1 class="title red" data-text="COLLECTION">COLLECTION</h1>
       <p class="quote">"Another fine addition<br>to the collection."</p>
-      <p class="lede">Photography by <b>[Your Name]</b>. Every frame I keep is a trophy: shadows, streets,
-        strangers and the things that move after midnight.</p>
+      <p class="lede">Photography by <b data-bind="name"></b>. <span data-bind="intro"></span></p>
       <a href="#trophy-room" class="btn">Enter the Archive ▼</a>
     </div>
 
@@ -80,7 +79,7 @@
       <h2><span class="num">壱</span> The Trophy Room <small>戦利品の間 · THE FINEST ADDITIONS</small></h2>
       <a href="collection/" class="btn ghost">View the Full Collection →</a>
     </header>
-    <!-- Shows photos marked fav: true in js/collection-data.js -->
+    <!-- Shows photos ticked "Trophy Room" in content/photo.json -->
     <div class="manga-grid" id="grid" data-mode="favorites"></div>
     <div class="section-cta">
       <p class="file mono"><span data-count>000</span> PIECES IN THE ARCHIVE</p>
@@ -92,19 +91,13 @@
   <section id="curator" class="section">
     <div class="curator">
       <div class="portrait">
-        <!-- <img src="images/me.jpg" alt="[Your Name]"> -->
-        <div class="ph"><span>THE<br>CURATOR</span></div>
+        <div class="ph" id="portrait"><span>THE<br>CURATOR</span></div>
         <span class="stamp">CLASSIFIED</span>
       </div>
       <div class="curator-text">
         <h2><span class="num">弐</span> The Curator <small>収集家</small></h2>
-        <p>[Write a short bio. How you got into photography, what you hunt for, and what makes a shot worthy of the collection.]</p>
-        <dl class="dossier">
-          <div><dt>WEAPON OF CHOICE</dt><dd>[Camera body]</dd></div>
-          <div><dt>SIGNATURE LENS</dt><dd>[Favourite lens]</dd></div>
-          <div><dt>HUNTING GROUNDS</dt><dd>[Favourite subjects / places]</dd></div>
-          <div><dt>ACTIVE HOURS</dt><dd>After dark</dd></div>
-        </dl>
+        <div id="bio"></div>
+        <dl class="dossier" id="dossier"></dl>
         <p class="brand-note">Dylan's Collection is a creative brand of <a href="../">Aten Productions</a>.</p>
       </div>
     </div>
@@ -116,9 +109,8 @@
       <p class="file mono">// NEW ACQUISITION REQUEST</p>
       <h2>Want to join the collection?</h2>
       <p>Portraits, cosplay, events, night shoots. If it's worth keeping, I want to shoot it.</p>
-      <div class="contact-links">
-        <a class="btn" href="mailto:photo@atenproductions.com">✉ Email</a>
-        <a class="btn ghost" href="#">Instagram</a>
+      <div class="contact-links" id="contact-links">
+        <a class="btn" data-href="contact.email|mailto:">✉ Email</a>
       </div>
     </div>
   </section>
@@ -138,7 +130,7 @@
     <button class="lb-nav next" aria-label="Next">›</button>
   </div>
 
-  <script src="js/collection-data.js"></script>
+  <script src="../js/content.js"></script>
   <script src="js/photo.js"></script>
 </body>
 </html>

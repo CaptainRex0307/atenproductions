@@ -1,0 +1,29 @@
+{
+  "name": "[Your Name]",
+  "intro": "Every frame I keep is a trophy: shadows, streets, strangers and the things that move after midnight.",
+  "bio": "[Write a short bio. How you got into photography, what you hunt for, and what makes a shot worthy of the collection.]",
+  "portrait": "",
+  "dossier": [
+    { "label": "Weapon of Choice", "value": "[Camera body]" },
+    { "label": "Signature Lens", "value": "[Favourite lens]" },
+    { "label": "Hunting Grounds", "value": "[Favourite subjects / places]" },
+    { "label": "Active Hours", "value": "After dark" }
+  ],
+  "contact": {
+    "email": "photo@atenproductions.com",
+    "socials": [
+      { "label": "Instagram", "url": "https://www.instagram.com/" }
+    ]
+  },
+  "photos": [
+    { "image": "", "title": "The Midnight Platform", "category": "Night",     "date": "2026.10", "shape": "auto", "trophy": true },
+    { "image": "", "title": "Faceless Crowd",        "category": "Street",    "date": "2026.09", "shape": "auto", "trophy": false },
+    { "image": "", "title": "Red Room Portrait",     "category": "Portraits", "date": "2026.08", "shape": "auto", "trophy": true },
+    { "image": "", "title": "Fog Over the Overpass", "category": "Urban",     "date": "2026.07", "shape": "auto", "trophy": true },
+    { "image": "", "title": "The Masked Guest",      "category": "Cosplay",   "date": "2026.06", "shape": "auto", "trophy": true },
+    { "image": "", "title": "Stairwell No. 4",       "category": "Urban",     "date": "2026.05", "shape": "auto", "trophy": false },
+    { "image": "", "title": "Neon Bleeds",           "category": "Night",     "date": "2026.04", "shape": "auto", "trophy": false },
+    { "image": "", "title": "Still Watching",        "category": "Portraits", "date": "2026.03", "shape": "auto", "trophy": true },
+    { "image": "", "title": "Last Train Home",       "category": "Street",    "date": "2026.02", "shape": "auto", "trophy": false }
+  ]
+}

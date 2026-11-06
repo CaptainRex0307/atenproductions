@@ -1,0 +1,45 @@
+{
+  "name": "[Your Name]",
+  "hero_text": "Through Aten Productions I bring clean signal, steady shows and calm under pressure to live events, broadcasts and productions of every size.",
+  "monitor": {
+    "format": "2160p 59.94",
+    "link": "12G-SDI"
+  },
+  "contact": {
+    "email": "you@atenproductions.com",
+    "phone": "(000) 000-0000",
+    "location": "[City, State] · Available to travel",
+    "socials": [
+      { "label": "LinkedIn", "url": "https://www.linkedin.com/" },
+      { "label": "Instagram", "url": "https://www.instagram.com/" }
+    ]
+  },
+  "services": [
+    { "icon": "Eye of Horus", "title": "Technical Direction", "text": "Switching, show calling and running the technical side of the production so the creative team can focus on the story." },
+    { "icon": "Ankh", "title": "Video Engineering", "text": "Camera shading & matching, CCU control, color and exposure so every angle looks like the same show." },
+    { "icon": "Djed pillar", "title": "Systems & Signal Flow", "text": "Design, build and troubleshooting of routing, conversion, sync/genlock and fiber, documented and labeled." },
+    { "icon": "Sun disk", "title": "Streaming & Broadcast", "text": "Encoders, multi-destination streams, ISO records and redundancy plans built to stay on air." },
+    { "icon": "Scarab", "title": "LED & Projection", "text": "Processor setup, content mapping, scaling and IMAG for stages, conferences and worship." },
+    { "icon": "Feather", "title": "Consulting & Training", "text": "Spec'ing gear, planning upgrades, and training volunteer or in-house crews to run with confidence." }
+  ],
+  "projects": [
+    { "title": "[Project Name]", "year": "2026", "category": "Live Event", "description": "Role: Technical Director. 6-camera multicam show with live stream and IMAG to a 40 ft LED wall.", "tags": ["Switching", "IMAG", "Stream"], "image": "" },
+    { "title": "[Project Name]", "year": "2025", "category": "Broadcast", "description": "Role: Video Engineer. Shaded 8 system cameras for a regional sports broadcast.", "tags": ["Shading", "CCU", "Sports"], "image": "" },
+    { "title": "[Project Name]", "year": "2025", "category": "Install", "description": "Role: Systems Designer. Designed and commissioned a control room with SDI/NDI hybrid routing.", "tags": ["Design", "Routing", "NDI"], "image": "" },
+    { "title": "[Project Name]", "year": "2024", "category": "Conference", "description": "Role: TD / Streaming Engineer. Three-day hybrid conference with remote presenters and 4 simultaneous streams.", "tags": ["Hybrid", "Encoding", "Remote"], "image": "" }
+  ],
+  "gear": [
+    { "category": "Switchers", "items": ["Ross Carbonite / Acuity", "Blackmagic ATEM", "Grass Valley", "vMix · OBS"] },
+    { "category": "Cameras & Shading", "items": ["Sony system cameras / RCP", "Blackmagic URSA / Studio", "PTZ (Panasonic, Sony)", "Waveform & vectorscope"] },
+    { "category": "Signal & Routing", "items": ["SDI · fiber · NDI · ST 2110", "Videohub / Ultrix routers", "Sync, genlock & conversion", "Intercom (Clear-Com, RTS)"] },
+    { "category": "Playback & Display", "items": ["ProPresenter · Resolume", "Novastar / Brompton LED", "Replay & graphics", "Projection blending"] }
+  ],
+  "about": "Aten was the ancient Egyptian sun disk, the light that reaches everything. That's the idea behind Aten Productions: get every signal where it needs to go, looking its best.\n\n[Write 2–3 sentences about yourself: how you got into production, what kinds of shows you love, and what clients can expect working with you.]",
+  "resume": "",
+  "timeline": [
+    { "dates": "2026 — Now", "title": "Founder, Aten Productions", "text": "Freelance TD & video engineering." },
+    { "dates": "20XX — 20XX", "title": "[Role], [Company]", "text": "[One line about what you did.]" },
+    { "dates": "20XX — 20XX", "title": "[Role], [Company]", "text": "[One line about what you did.]" },
+    { "dates": "20XX", "title": "[Education / Certification]", "text": "[School or program.]" }
+  ]
+}

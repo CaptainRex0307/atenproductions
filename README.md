@@ -1,30 +1,44 @@
-# Aten Productions + Dylan's Collection portfolio
+# Aten Productions + Dylan's Collection
 
-Plain HTML, CSS and JS. No build step.
+Live site: https://captainrex0307.github.io/atenproductions/
+
+## ✏️ How to update the site (no code)
+
+All text, contact info, projects and photos live in two files, and you edit them with forms:
+
+1. Go to **https://app.pagescms.org** and sign in with GitHub.
+2. The first time, click to install the Pages CMS app on GitHub and give it access to **atenproductions**.
+3. Open **atenproductions**. In the left menu you'll see:
+   - **Aten Productions (main site):** name, intro, email, phone, socials, projects, services, gear, about, résumé, timeline
+   - **Dylan's Collection (photo site):** photos (with upload + "Trophy Room" checkbox), bio, dossier, contact
+   - **Media:** every image or PDF you've uploaded
+4. Change anything and click **Save**. The live site updates on its own in about 1–2 minutes.
+
+Tips
+- Leave a field empty to hide it (e.g. no phone number = no phone row).
+- Drag list items to reorder them. The top photo is No. 001.
+- Tick **In the Trophy Room** on up to 5 photos to feature them on the photo home page.
+- Leave **Panel shape** on *auto* and the gallery arranges itself.
+
+## How it's built
 
 ```
-index.html               → Aten Productions (main page: TD / video engineering)
-css/aten.css, js/aten.js
-assets/                  → put resume.pdf and project stills here
-photography/index.html   → Dylan's Collection home (hero + The Trophy Room favourites)
-photography/collection/  → The Collection: full gallery with filters
-photography/css, js
-photography/images/      → put your photos here
+content/aten.json        ← everything on the Aten page
+content/photo.json       ← everything on the photo pages
+media/                   ← uploaded photos & PDFs
+.pages.yml               ← defines the Pages CMS forms
+
+index.html               → Aten Productions (main page)
+photography/             → Dylan's Collection home (Trophy Room favourites)
+photography/collection/  → The Collection (full gallery with filters)
+js/content.js            → loads content/*.json into the pages
 ```
 
-## Customize
-- Search both `index.html` files for `[` to find every placeholder (name, projects, bio, contact).
-- **Gallery:** edit `photography/js/collection-data.js` (`src: "images/your.jpg"`). Both photo pages read this one list.
-  Set `fav: true` on a photo to feature it in The Trophy Room (5 favourites tile best). Filter buttons build themselves.
-- **Project stills:** replace a `<div class="work-media">…</div>` with `<img src="assets/img/x.jpg" alt="">` inside it.
-- **Colors:** change the `:root` variables at the top of each CSS file.
-- **Contact form** uses `mailto:`. For real submissions, point `action` at Formspree or Netlify Forms.
+You can also edit `content/*.json` directly on GitHub (pencil icon) if you prefer.
 
 ## Preview locally
+The pages load their content with `fetch`, so opening the HTML file directly (file://) won't work. Run:
 ```bash
 python3 -m http.server 8000
 ```
 Then open http://localhost:8000
-
-## Host for free
-Push the folder to a GitHub repo and enable **Settings → Pages**, or drag the folder onto Netlify Drop.

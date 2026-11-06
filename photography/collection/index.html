@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-root="../../">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -48,8 +48,8 @@
       <h2><span class="num">全</span> Every Piece <small>全収蔵品 · FILTER THE ARCHIVE</small></h2>
       <div class="filters" role="tablist" aria-label="Filter the collection"></div>
     </header>
-    <!-- Photos come from ../js/collection-data.js. data-base points from this page back to photography/ -->
-    <div class="manga-grid" id="grid" data-mode="all" data-base="../"></div>
+    <!-- Photos come from content/photo.json -->
+    <div class="manga-grid" id="grid" data-mode="all"></div>
   </section>
 
   <section class="section contact">
@@ -57,8 +57,8 @@
       <p class="file mono">// NEW ACQUISITION REQUEST</p>
       <h2>Want to join the collection?</h2>
       <p>Portraits, cosplay, events, night shoots. If it's worth keeping, I want to shoot it.</p>
-      <div class="contact-links">
-        <a class="btn" href="mailto:photo@atenproductions.com">✉ Email</a>
+      <div class="contact-links" id="contact-links">
+        <a class="btn" data-href="contact.email|mailto:">✉ Email</a>
         <a class="btn ghost" href="../">← Back to Dylan's Collection</a>
       </div>
     </div>
@@ -79,7 +79,7 @@
     <button class="lb-nav next" aria-label="Next">›</button>
   </div>
 
-  <script src="../js/collection-data.js"></script>
+  <script src="../../js/content.js"></script>
   <script src="../js/photo.js"></script>
 </body>
 </html>

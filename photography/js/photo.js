@@ -1,6 +1,6 @@
 // =============================================================
 // DYLAN'S COLLECTION: page behaviour.
-// Your photos live in js/collection-data.js; you shouldn't need to edit this file.
+// All text and photos come from content/photo.json (edit it with Pages CMS).
 // =============================================================
 
 // Placeholder gradients (horror palettes) used when a photo has no src
@@ -11,30 +11,30 @@ const GRADIENTS = [
   "radial-gradient(circle at 50% 10%,#ece3d433,transparent 45%),linear-gradient(180deg,#3d3739,#0f0c0d 85%)",
   "radial-gradient(circle at 60% 70%,#ff2a3a44,transparent 45%),linear-gradient(190deg,#1f2629,#080607)",
 ];
-// Panel shapes for the "Trophy Room" grid, by position
+// Automatic panel shapes, by position (these patterns tile the 6-column grid with no gaps)
 const FAV_LAYOUT = ["big", "", "", "wide", ""];
+const AUTO_LAYOUT = ["big", "", "", "wide", "", "tall", "", "", "wide"];
+const SHAPES = { square: "", wide: "wide", tall: "tall", big: "big" };
 
 const pad = (n) => String(n).padStart(3, "0");
 const grid = document.getElementById("grid");
 const mode = grid ? grid.dataset.mode : null;          // "favorites" | "all"
-const base = (grid && grid.dataset.base) || "";        // path from this page to photography/
 const filters = document.querySelector(".filters");
-
-// Each entry keeps its catalogue number from the full list
-const items = PHOTOS.map((p, i) => ({ ...p, no: i + 1, g: GRADIENTS[i % GRADIENTS.length] }))
-  .filter((p) => mode !== "favorites" || p.fav);
+const esc = Site.esc;
+let items = [];
 let visible = [];
 
 function media(p) {
   return p.src
-    ? `<img src="${base}${p.src}" alt="${p.title}" loading="lazy">`
+    ? `<img src="${esc(Site.asset(p.src))}" alt="${esc(p.title)}" loading="lazy">`
     : `<div class="ph" style="--g:${p.g}"></div>`;
 }
 
 function render() {
   if (!grid) return;
   items.forEach((p, i) => {
-    const size = mode === "favorites" ? (FAV_LAYOUT[i] ?? "") : (p.size || "");
+    const size = mode === "favorites" ? (FAV_LAYOUT[i] ?? "")
+      : (p.shape && p.shape !== "auto" ? SHAPES[p.shape] ?? "" : AUTO_LAYOUT[i % AUTO_LAYOUT.length]);
     const el = document.createElement("figure");
     el.className = `panel ${size}`;
     el.dataset.cat = p.cat;
@@ -42,10 +42,10 @@ function render() {
     el.style.animationDelay = `${i * 60}ms`;
     el.tabIndex = 0;
     el.setAttribute("role", "button");
-    el.setAttribute("aria-label", `Open ${p.title}`);
+    el.setAttribute("aria-label", `Open ${p.title || "photo"}`);
     el.innerHTML = `${media(p)}
       <span class="tag${p.fav ? " fav" : ""}">No. ${pad(p.no)}${p.fav ? " ★" : ""}</span>
-      <figcaption class="label"><small>${p.cat.toUpperCase()} · ACQUIRED ${p.date || ""}</small>${p.title}</figcaption>`;
+      <figcaption class="label"><small>${esc(p.cat.toUpperCase())}${p.date ? " · ACQUIRED " + esc(p.date) : ""}</small>${esc(p.title)}</figcaption>`;
     el.addEventListener("click", () => openLB(i));
     el.addEventListener("keydown", (e) => { if (e.key === "Enter") openLB(i); });
     grid.appendChild(el);
@@ -76,11 +76,13 @@ function setFilter(cat) {
 }
 
 // ---------- Acquisition counters ----------
-document.querySelectorAll("[data-count]").forEach((el) => {
-  const target = PHOTOS.length;
-  let n = 0;
-  const t = setInterval(() => { el.textContent = pad(++n); if (n >= target) clearInterval(t); }, 90);
-});
+function counters(target) {
+  document.querySelectorAll("[data-count]").forEach((el) => {
+    if (!target) return (el.textContent = pad(0));
+    let n = 0;
+    const t = setInterval(() => { el.textContent = pad(++n); if (n >= target) clearInterval(t); }, 90);
+  });
+}
 
 // ---------- Lightbox ----------
 const lb = document.getElementById("lightbox");
@@ -92,7 +94,7 @@ function openLB(i) {
   current = i;
   const p = items[i];
   lbMedia.innerHTML = media(p);
-  lbCap.innerHTML = `<small>No. ${pad(p.no)} · ${p.cat.toUpperCase()}${p.fav ? " · TROPHY ROOM" : ""}</small>${p.title}`;
+  lbCap.innerHTML = `<small>No. ${pad(p.no)} · ${esc(p.cat.toUpperCase())}${p.fav ? " · TROPHY ROOM" : ""}</small>${esc(p.title)}`;
   lb.hidden = false;
   document.body.style.overflow = "hidden";
 }
@@ -161,5 +163,27 @@ if (lb) {
   })(0);
 })();
 
-render();
+// ---------- Load content ----------
+function init(d) {
+  Site.bind(d);
+  const photos = (d.photos || []).filter((p) => p && (p.image || p.title));
+  // Map CMS fields to what the gallery uses; each keeps its catalogue number
+  items = photos.map((p, i) => ({
+    src: p.image, title: p.title || "Untitled", cat: p.category || "Uncategorised",
+    date: p.date, shape: p.shape, fav: !!p.trophy, no: i + 1, g: GRADIENTS[i % GRADIENTS.length],
+  })).filter((p) => mode !== "favorites" || p.fav);
+  counters(photos.length);
+  render();
+
+  const bio = document.getElementById("bio");
+  if (bio) bio.innerHTML = Site.paragraphs(d.bio);
+  const dossier = document.getElementById("dossier");
+  if (dossier) dossier.innerHTML = (d.dossier || []).filter((x) => x && (x.label || x.value))
+    .map((x) => `<div><dt>${esc((x.label || "").toUpperCase())}</dt><dd>${esc(x.value)}</dd></div>`).join("");
+  const portrait = document.getElementById("portrait");
+  if (portrait && d.portrait) portrait.outerHTML = `<img src="${esc(Site.asset(d.portrait))}" alt="${esc(d.name || "The curator")}">`;
+  const links = document.getElementById("contact-links");
+  if (links) links.insertAdjacentHTML("beforeend", Site.socials(d.contact?.socials, "btn ghost").join(""));
+}
+Site.load("photo").then(init).catch(Site.fail);
 document.querySelectorAll(".year").forEach((el) => (el.textContent = new Date().getFullYear()));

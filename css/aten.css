@@ -24,6 +24,7 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
+[hidden] { display: none !important; }
 html { scroll-behavior: smooth; }
 body {
   background: var(--night);
@@ -282,7 +283,8 @@ img { max-width: 100%; display: block; }
 .contact-form input:focus, .contact-form textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(212,165,55,.15); }
 .contact-form button { justify-self: start; }
 .contact-info p { display: grid; gap: .2rem; padding: 1rem 0; border-bottom: 1px solid var(--line); font-size: .9rem; }
-.contact-info span { color: var(--gold); font-size: .7rem; }
+.contact-info p > span:first-child { color: var(--gold); font-size: .7rem; }
+.contact-info #socials a + a::before { content: " · "; color: var(--muted); }
 
 /* Footer */
 .footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding: 2rem clamp(1rem, 6vw, 5rem); color: var(--muted); font-size: .75rem; }

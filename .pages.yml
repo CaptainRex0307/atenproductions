@@ -1,0 +1,145 @@
+# Pages CMS configuration: https://pagescms.org
+# Sign in at https://app.pagescms.org with GitHub, pick this repo, and you get
+# simple forms for everything below. Saving commits to GitHub and the site
+# rebuilds automatically.
+
+media:
+  input: media
+  output: /media
+
+content:
+  # ---------------------------------------------------------------
+  - name: aten
+    label: "Aten Productions (main site)"
+    type: file
+    path: content/aten.json
+    fields:
+      - name: name
+        label: Your name
+        type: string
+      - name: hero_text
+        label: Intro (top of the page)
+        description: Shown after "I'm [your name]."
+        type: text
+      - name: contact
+        label: Contact info
+        type: object
+        fields:
+          - { name: email, label: Email, type: string }
+          - { name: phone, label: Phone, type: string }
+          - { name: location, label: Based in, type: string }
+          - name: socials
+            label: Social links
+            type: object
+            list: true
+            fields:
+              - { name: label, label: "Name (e.g. LinkedIn)", type: string }
+              - { name: url, label: "Link (https://...)", type: string }
+      - name: projects
+        label: Projects (Selected Work)
+        type: object
+        list: true
+        fields:
+          - { name: title, label: Project name, type: string }
+          - { name: year, label: Year, type: string }
+          - { name: category, label: "Type (e.g. Live Event)", type: string }
+          - { name: description, label: Description / your role, type: text }
+          - { name: tags, label: Tags, type: string, list: true }
+          - { name: image, label: Photo or still, type: image }
+      - name: services
+        label: Services
+        type: object
+        list: true
+        fields:
+          - name: icon
+            label: Icon
+            type: select
+            options:
+              values: ["Eye of Horus", "Ankh", "Djed pillar", "Sun disk", "Scarab", "Feather", "Lotus", "Owl"]
+          - { name: title, label: Title, type: string }
+          - { name: text, label: Description, type: text }
+      - name: gear
+        label: The Rig (gear & skills)
+        type: object
+        list: true
+        fields:
+          - { name: category, label: "Category (e.g. Switchers)", type: string }
+          - { name: items, label: Items, type: string, list: true }
+      - name: about
+        label: About me
+        description: Leave a blank line between paragraphs.
+        type: text
+      - name: resume
+        label: Résumé (PDF)
+        description: Leave empty to hide the Download Résumé button.
+        type: file
+      - name: timeline
+        label: Experience timeline
+        type: object
+        list: true
+        fields:
+          - { name: dates, label: "Dates (e.g. 2022 — 2024)", type: string }
+          - { name: title, label: "Role, Company", type: string }
+          - { name: text, label: One-line summary, type: string }
+      - name: monitor
+        label: Broadcast readout (hero corner)
+        type: object
+        fields:
+          - { name: format, label: Format, type: string }
+          - { name: link, label: Link, type: string }
+
+  # ---------------------------------------------------------------
+  - name: photo
+    label: "Dylan's Collection (photo site)"
+    type: file
+    path: content/photo.json
+    fields:
+      - name: photos
+        label: Photos (The Collection)
+        description: Top of the list = No. 001. Tick "Trophy Room" to feature a photo on the home page (5 looks best).
+        type: object
+        list: true
+        fields:
+          - { name: image, label: Photo, type: image }
+          - { name: title, label: Title, type: string }
+          - { name: category, label: "Category (e.g. Night, Street, Portraits)", type: string }
+          - { name: date, label: "Acquired (e.g. 2026.10)", type: string }
+          - { name: trophy, label: In the Trophy Room, type: boolean }
+          - name: shape
+            label: Panel shape
+            description: Auto arranges the grid for you.
+            type: select
+            options:
+              values: ["auto", "square", "wide", "tall", "big"]
+      - name: name
+        label: Your name
+        type: string
+      - name: intro
+        label: Intro (top of the page)
+        type: text
+      - name: bio
+        label: Curator bio
+        description: Leave a blank line between paragraphs.
+        type: text
+      - name: portrait
+        label: Your portrait (optional)
+        type: image
+      - name: dossier
+        label: Curator dossier
+        type: object
+        list: true
+        fields:
+          - { name: label, label: "Label (e.g. Weapon of Choice)", type: string }
+          - { name: value, label: Value, type: string }
+      - name: contact
+        label: Contact info
+        type: object
+        fields:
+          - { name: email, label: Email, type: string }
+          - name: socials
+            label: Social links
+            type: object
+            list: true
+            fields:
+              - { name: label, label: "Name (e.g. Instagram)", type: string }
+              - { name: url, label: "Link (https://...)", type: string }
