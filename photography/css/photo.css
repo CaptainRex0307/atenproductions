@@ -15,7 +15,8 @@
 
   --f-display: "Anton", Impact, sans-serif;
   --f-jp: "Shippori Mincho B1", serif;
-  --f-body: "Zen Kaku Gothic New", system-ui, sans-serif;
+  --f-body: "Zen Old Mincho", "Shippori Mincho B1", serif;
+  --f-type: "Special Elite", "Courier New", monospace;
   --max: 1180px;
 }
 
@@ -26,12 +27,13 @@ body {
   background: var(--void);
   color: var(--bone);
   font-family: var(--f-body);
-  line-height: 1.7;
+  font-size: 1.06rem;
+  line-height: 1.75;
   overflow-x: clip;
 }
 a { color: inherit; }
 img { display: block; max-width: 100%; }
-.mono { font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; letter-spacing: .12em; }
+.mono { font-family: var(--f-type); letter-spacing: .1em; }
 
 /* Atmosphere layers */
 #ash { position: fixed; inset: 0; pointer-events: none; z-index: 40; }
@@ -273,7 +275,7 @@ img { display: block; max-width: 100%; }
 .curator-text p { margin: 1.2rem 0; color: var(--ash); }
 .dossier { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); }
 .dossier div { padding: .9rem 0; border-bottom: 1px solid var(--line); }
-.dossier dt { font-size: .68rem; letter-spacing: .22em; color: var(--blood-2); font-weight: 700; }
+.dossier dt { font-family: var(--f-type); font-size: .75rem; letter-spacing: .16em; color: var(--blood-2); font-weight: 700; }
 .dossier dd { color: var(--bone); }
 .brand-note { font-size: .85rem; }
 .brand-note a { color: #d4a537; font-weight: 700; }
