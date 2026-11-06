@@ -337,7 +337,7 @@ img { display: block; max-width: 100%; }
   #ash { display: none; }
 }
 
-/* ---------- Most Valuable + Collection page ---------- */
+/* ---------- Trophy Room + Collection page ---------- */
 .panel .tag.fav { background: var(--blood); color: var(--bone); }
 .section-cta { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
 .section-cta .file { margin: 0; }

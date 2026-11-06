@@ -7,7 +7,7 @@
 //   cat:   category (filter buttons on the Collection page are built from these)
 //   date:  when it was "acquired"
 //   size:  "" | "wide" | "tall" | "big"  (panel shape on the full Collection page)
-//   fav:   true = show it in "Most Valuable" on the main photo page
+//   fav:   true = show it in "The Trophy Room" on the main photo page
 //
 // Pieces are numbered automatically in list order (No. 001, No. 002, ...).
 // On the main page, favourites are laid out automatically: the first is big.

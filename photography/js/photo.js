@@ -11,7 +11,7 @@ const GRADIENTS = [
   "radial-gradient(circle at 50% 10%,#ece3d433,transparent 45%),linear-gradient(180deg,#3d3739,#0f0c0d 85%)",
   "radial-gradient(circle at 60% 70%,#ff2a3a44,transparent 45%),linear-gradient(190deg,#1f2629,#080607)",
 ];
-// Panel shapes for the "Most Valuable" grid, by position
+// Panel shapes for the "Trophy Room" grid, by position
 const FAV_LAYOUT = ["big", "", "", "wide", ""];
 
 const pad = (n) => String(n).padStart(3, "0");
@@ -53,7 +53,7 @@ function render() {
   visible = items.map((_, i) => i);
 
   if (filters) {
-    ["All", "★ Most Valuable", ...new Set(items.map((p) => p.cat))].forEach((c) => {
+    ["All", "★ Trophy Room", ...new Set(items.map((p) => p.cat))].forEach((c) => {
       const b = document.createElement("button");
       b.textContent = c;
       b.setAttribute("role", "tab");
@@ -92,7 +92,7 @@ function openLB(i) {
   current = i;
   const p = items[i];
   lbMedia.innerHTML = media(p);
-  lbCap.innerHTML = `<small>No. ${pad(p.no)} · ${p.cat.toUpperCase()}${p.fav ? " · MOST VALUABLE" : ""}</small>${p.title}`;
+  lbCap.innerHTML = `<small>No. ${pad(p.no)} · ${p.cat.toUpperCase()}${p.fav ? " · TROPHY ROOM" : ""}</small>${p.title}`;
   lb.hidden = false;
   document.body.style.overflow = "hidden";
 }
