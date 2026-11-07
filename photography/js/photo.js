@@ -240,4 +240,3 @@ function showForm(o) {
 }
 
 Site.load("photo").then(init).catch(Site.fail);
-document.querySelectorAll(".year").forEach((el) => (el.textContent = new Date().getFullYear()));

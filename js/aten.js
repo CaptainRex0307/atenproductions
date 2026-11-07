@@ -101,5 +101,4 @@ function reveal() {
   items.forEach((el) => io.observe(el));
 }
 
-document.getElementById("year").textContent = new Date().getFullYear();
 Site.load("aten").then(renderAten).catch(Site.fail);
