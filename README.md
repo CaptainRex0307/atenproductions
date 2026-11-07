@@ -17,8 +17,10 @@ All text, contact info, projects and photos live in two files, and you edit them
 Tips
 - Leave a field empty to hide it (e.g. no phone number = no phone row).
 - Drag list items to reorder them. The top photo is No. 001.
-- Tick **In the Trophy Room** on up to 5 photos to feature them on the photo home page.
-- Leave **Panel shape** on *auto* and the gallery arranges itself.
+- Tick **In the Trophy Room** on up to 5 photos to feature them on the photo home page. The first one is shown big.
+  Rows come out even with 5 portrait photos, or 4 if one of them is a landscape shot.
+- Gallery boxes are **Instagram 4:5**, so portrait posts (1080×1350) fit with no cropping; 3:4 and square shots lose a sliver.
+  Leave **Panel shape** on *auto*: landscape photos get a wide box automatically, and every 9th piece is a big feature.
 - **Bookings:** there are two Google Form slots under *Bookings*: **Convention bookings** and **Any-time bookings**. In Google Forms: **Send → link icon → untick "Shorten URL" → Copy**, then paste. The full link shows the form right on the page; a short forms.gle link becomes a button instead. Leave a link empty to hide that option.
   Direct links: `photography/book/#convention` and `photography/book/#anytime`.
 

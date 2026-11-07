@@ -11,10 +11,11 @@ const GRADIENTS = [
   "radial-gradient(circle at 50% 10%,#ece3d433,transparent 45%),linear-gradient(180deg,#3d3739,#0f0c0d 85%)",
   "radial-gradient(circle at 60% 70%,#ff2a3a44,transparent 45%),linear-gradient(190deg,#1f2629,#080607)",
 ];
-// Automatic panel shapes, by position (these patterns tile the 6-column grid with no gaps)
-const FAV_LAYOUT = ["big", "", "", "wide", ""];
-const AUTO_LAYOUT = ["big", "", "", "wide", "", "tall", "", "", "wide"];
-const SHAPES = { square: "", wide: "wide", tall: "tall", big: "big" };
+// Panel shapes. Cells are Instagram 4:5. On "auto", every 9th piece is a 2×2 feature
+// (big + 8 portraits fill 3 rows of 4) and landscape photos get a wide box once they load.
+const FAV_LAYOUT = ["big", "", "", "", ""];          // 5 favourites = 2 full rows
+const SHAPES = { portrait: "", square: "", tall: "", wide: "wide", big: "big" };
+const autoShape = (i) => (i % 9 === 0 ? "big" : "");
 
 const pad = (n) => String(n).padStart(3, "0");
 const grid = document.getElementById("grid");
@@ -33,8 +34,9 @@ function media(p) {
 function render() {
   if (!grid) return;
   items.forEach((p, i) => {
+    const auto = !p.shape || p.shape === "auto";
     const size = mode === "favorites" ? (FAV_LAYOUT[i] ?? "")
-      : (p.shape && p.shape !== "auto" ? SHAPES[p.shape] ?? "" : AUTO_LAYOUT[i % AUTO_LAYOUT.length]);
+      : auto ? autoShape(i) : SHAPES[p.shape] ?? "";
     const el = document.createElement("figure");
     el.className = `panel ${size}`;
     el.dataset.cat = p.cat;
@@ -48,6 +50,14 @@ function render() {
       <figcaption class="label"><small>${esc(p.cat.toUpperCase())}${p.date ? " · ACQUIRED " + esc(p.date) : ""}</small>${esc(p.title)}</figcaption>`;
     el.addEventListener("click", () => openLB(i));
     el.addEventListener("keydown", (e) => { if (e.key === "Enter") openLB(i); });
+    // Smart auto: a landscape photo (wider than ~5:4) gets a wide box instead
+    const img = el.querySelector("img");
+    if (img && (auto || mode === "favorites")) {
+      const fit = () => {
+        if (img.naturalWidth / img.naturalHeight > 1.25) { el.classList.remove("big"); el.classList.add("wide"); }
+      };
+      img.complete && img.naturalWidth ? fit() : img.addEventListener("load", fit, { once: true });
+    }
     grid.appendChild(el);
   });
   visible = items.map((_, i) => i);

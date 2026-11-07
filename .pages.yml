@@ -107,10 +107,10 @@ content:
           - { name: trophy, label: In the Trophy Room, type: boolean }
           - name: shape
             label: Panel shape
-            description: Auto arranges the grid for you.
+            description: "Boxes are Instagram 4:5. Auto = portrait box, or a wide box if the photo is landscape. Big = 2×2 feature. Wide = landscape."
             type: select
             options:
-              values: ["auto", "square", "wide", "tall", "big"]
+              values: ["auto", "portrait", "wide", "big"]
       - name: name
         label: Your name
         type: string
