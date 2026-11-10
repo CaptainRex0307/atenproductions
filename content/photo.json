@@ -1,8 +1,27 @@
 {
+  "photos": [
+    {
+      "image": "/media/collection/Rem (16 of 28).jpg",
+      "title": "Rem (16 of 28)",
+      "character": "Vampire",
+      "cosplayer": "Rem",
+      "cosplayer_instagram": "@handle",
+      "date": "2025.01",
+      "convention": "Photoshoot",
+      "trophy": false,
+      "shape": "portrait"
+    },
+    {
+      "image": "/media/collection/Rem (18 of 28).jpg",
+      "title": "Rem (18 of 28)",
+      "date": "2025.01",
+      "trophy": false,
+      "shape": "auto"
+    }
+  ],
   "name": "[Your Name]",
   "intro": "Every frame I keep is a trophy: shadows, streets, strangers and the things that move after midnight.",
   "bio": "[Write a short bio. How you got into photography, what you hunt for, and what makes a shot worthy of the collection.]",
-  "portrait": "",
   "dossier": [
     {
       "label": "Weapon of Choice",
@@ -34,37 +53,11 @@
     "intro": "Portraits, cosplay, events, night shoots. Fill in the form with what you have in mind and I'll get back to you to lock in a date.",
     "convention": {
       "title": "Convention Shoot",
-      "text": "Catching me at an upcoming con? Pick the convention and day, tell me your character, and we'll set a time to meet.",
-      "form_url": ""
+      "text": "Catching me at an upcoming con? Pick the convention and day, tell me your character, and we'll set a time to meet."
     },
     "anytime": {
       "title": "Any Time",
-      "text": "Portraits, cosplay, events or night shoots on a date that works for you.",
-      "form_url": ""
+      "text": "Portraits, cosplay, events or night shoots on a date that works for you."
     }
-  },
-  "photos": [
-    {
-      "image": "/media/collection/Rem (16 of 28).jpg",
-      "title": "Rem (16 of 28)",
-      "date": "2025.01",
-      "character": "",
-      "convention": "",
-      "category": "",
-      "shape": "auto",
-      "trophy": false
-    },
-    {
-      "image": "/media/collection/Rem (18 of 28).jpg",
-      "title": "Rem (18 of 28)",
-      "date": "2025.01",
-      "character": "",
-      "cosplayer": "",
-      "cosplayer_instagram": "",
-      "convention": "",
-      "category": "",
-      "shape": "auto",
-      "trophy": false
-    }
-  ]
+  }
 }
