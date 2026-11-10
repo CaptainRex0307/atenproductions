@@ -18,7 +18,9 @@ All text, contact info, projects and photos live in two files, and you edit them
 1. In Pages CMS open **Media → Collection photos** and drag in as many photos as you like (JPG, PNG or WebP).
 2. Within a minute or two they appear in **The Collection** on their own: numbered, titled from the file name
    (`midnight-alley.jpg` → "Midnight Alley"), dated from the camera, resized if huge, and rotated upright.
-3. Optional: open **Dylan's Collection → Photos** to give them a title, category or ★ Trophy Room tick.
+3. Optional: open **Dylan's Collection → Photos** to edit anything about a photo: **name, date, category, location,
+   model / cosplayer credit, story**, ★ Trophy Room, and **camera details** (camera, lens and settings are filled in
+   automatically from the photo; change or clear them freely). These show when someone opens the photo.
 - **To remove a photo:** delete its file in Media → Collection photos (removing it only from the list brings it back on the next upload).
 - Until you tick any Trophy Room photos, the home page shows your 5 newest.
 - The demo placeholder photos disappear automatically once your first real photo is added.

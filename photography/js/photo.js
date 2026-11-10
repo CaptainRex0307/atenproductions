@@ -104,7 +104,15 @@ function openLB(i) {
   current = i;
   const p = items[i];
   lbMedia.innerHTML = media(p);
-  lbCap.innerHTML = `<small>${esc(["No. " + pad(p.no), p.cat.toUpperCase(), p.fav ? "TROPHY ROOM" : ""].filter(Boolean).join(" · "))}</small>${esc(p.title)}`;
+  const line = (parts) => parts.map((x) => String(x || "").trim()).filter(Boolean).map(esc).join(" · ");
+  const cam = p.camera && typeof p.camera === "object" ? p.camera : {};
+  const where = line([p.date, p.location, p.subject]);
+  const gear = line([cam.body, cam.lens, cam.settings]);
+  lbCap.innerHTML = `<small>${line(["No. " + pad(p.no), p.cat.toUpperCase(), p.fav ? "TROPHY ROOM" : ""])}</small>
+    <span class="lb-title">${esc(p.title)}</span>
+    ${where ? `<span class="lb-meta">${where}</span>` : ""}
+    ${p.description ? `<span class="lb-story">${esc(p.description).replace(/\n/g, "<br>")}</span>` : ""}
+    ${gear ? `<span class="lb-gear">◉ ${gear}</span>` : ""}`;
   lb.hidden = false;
   document.body.style.overflow = "hidden";
 }
@@ -181,6 +189,7 @@ function init(d) {
   items = photos.map((p, i) => ({
     src: p.image, title: p.title || "Untitled", cat: String(p.category || "").trim(),
     date: p.date, shape: p.shape, fav: !!p.trophy, no: i + 1, g: GRADIENTS[i % GRADIENTS.length],
+    location: p.location, subject: p.subject, description: p.description, camera: p.camera,
   }));
   if (mode === "favorites") {
     // Ticked "Trophy Room" photos; if none are ticked yet, show the 5 newest pieces

@@ -312,9 +312,14 @@ section:has(> .manga-grid) { container-type: inline-size; }
 .lightbox[hidden] { display: none; }
 .lightbox figure { justify-self: center; max-width: 100%; }
 .lb-media { border: 3px solid #000; outline: 1px solid var(--blood); box-shadow: 0 0 60px rgba(193,18,31,.35); }
-.lb-media img { max-height: 78vh; max-width: 100%; width: auto; margin: 0 auto; }
+.lb-media { width: fit-content; max-width: 100%; margin: 0 auto; }
+.lb-media img { display: block; max-height: 68vh; max-width: 100%; width: auto; margin: 0 auto; }
 .lb-media .ph { width: min(80vw, 720px); aspect-ratio: 3 / 2; background: var(--g); }
-.lightbox figcaption { color: var(--bone); text-align: center; margin-top: 1rem; font-weight: 700; letter-spacing: .05em; }
+.lightbox figcaption { color: var(--bone); text-align: center; margin: 1rem auto 0; max-width: 680px; display: grid; gap: .35rem; }
+.lb-title { font-family: var(--f-display); font-size: 1.5rem; letter-spacing: .06em; }
+.lb-meta { color: var(--bone); opacity: .85; }
+.lb-story { color: var(--ash); font-size: .95rem; line-height: 1.6; }
+.lb-gear { font-family: var(--f-type); color: var(--ash); font-size: .78rem; letter-spacing: .08em; }
 .lightbox figcaption small { display: block; color: var(--blood-2); letter-spacing: .2em; font-size: .7rem; }
 .lb-close, .lb-nav {
   background: transparent; color: var(--bone); border: 1px solid var(--bone);

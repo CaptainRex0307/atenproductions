@@ -111,9 +111,23 @@ content:
         list: true
         fields:
           - { name: image, label: Photo, type: image, options: { media: collection } }
-          - { name: title, label: Title, type: string }
-          - { name: category, label: "Category (e.g. Night, Street, Portraits)", type: string }
-          - { name: date, label: "Acquired (e.g. 2026.10)", type: string }
+          - { name: title, label: Name / title, type: string }
+          - name: date
+            label: Date
+            description: "Any format you like: 2026.10, Oct 31 2026, Halloween 2026... Filled in from the camera, change it freely."
+            type: string
+          - { name: category, label: "Category (e.g. Night, Street, Portraits, Cosplay)", type: string }
+          - { name: location, label: "Location (e.g. Anime Expo, Downtown LA)", type: string }
+          - { name: subject, label: "Model / cosplayer / subject (e.g. @handle as Character)", type: string }
+          - { name: description, label: Story / notes, type: text }
+          - name: camera
+            label: Camera details
+            description: Filled in automatically from the photo when it's added. Edit or clear anything.
+            type: object
+            fields:
+              - { name: body, label: "Camera (e.g. Sony A7 IV)", type: string }
+              - { name: lens, label: "Lens (e.g. 35mm f/1.8)", type: string }
+              - { name: settings, label: "Settings (e.g. 35mm · f/1.8 · 1/200s · ISO 800)", type: string }
           - { name: trophy, label: In the Trophy Room, type: boolean }
           - name: shape
             label: Panel shape
