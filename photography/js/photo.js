@@ -200,12 +200,14 @@ function init(d) {
   Site.bind(d);
   const photos = (d.photos || []).filter((p) => p && (p.image || p.title));
   // Map CMS fields to what the gallery uses; each keeps its catalogue number
+  // Piece No.: the number typed in the CMS, else the position in the list. Gallery is sorted by it.
+  const pieceNo = (p, i) => { const n = parseInt(p.number, 10); return n > 0 ? n : i + 1; };
   items = photos.map((p, i) => ({
     src: p.image, title: p.title || "Untitled", cat: String(p.category || "").trim(),
-    date: p.date, shape: p.shape, fav: !!p.trophy, no: i + 1, g: GRADIENTS[i % GRADIENTS.length],
+    date: p.date, shape: p.shape, fav: !!p.trophy, no: pieceNo(p, i), g: GRADIENTS[i % GRADIENTS.length],
     character: p.character, convention: p.convention,
     cosplayer: p.cosplayer, cosplayer_instagram: p.cosplayer_instagram,
-  }));
+  })).map((p, i) => ({ ...p, order: i })).sort((a, b) => a.no - b.no || a.order - b.order);
   if (mode === "favorites") {
     // Ticked "Trophy Room" photos; if none are ticked yet, show the 5 newest pieces
     const favs = items.filter((p) => p.fav);

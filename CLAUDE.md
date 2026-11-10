@@ -20,6 +20,7 @@ The owner edits content through **Pages CMS** (app.pagescms.org), which commits 
 - `media/collection/` → photos dropped here are added to `content/photo.json` → `photos` automatically by
   `.github/workflows/sync-collection.yml` (runs `.github/scripts/sync_collection.py`: resizes, fixes rotation, strips EXIF/GPS/XMP metadata from the files
   (the owner doesn't want camera settings published), appends new
-  entries, removes entries whose file was deleted, drops imageless placeholders). Don't hand-edit entries for those files' paths.
+  entries numbered after the highest `number` (Piece No., which sets display order), removes entries whose file was deleted,
+  drops imageless placeholders). Don't hand-edit entries for those files' paths.
 - `media/` → CMS uploads, stored in JSON as `/media/<file>` (resolved relative to the page, since the site lives under `/atenproductions/`)
 - Preview: `python3 -m http.server` from the repo root (content won't load over file://)

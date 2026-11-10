@@ -2,6 +2,7 @@
   "photos": [
     {
       "image": "/media/collection/Rem (16 of 28).jpg",
+      "number": 1,
       "title": "Rem (16 of 28)",
       "character": "Vampire",
       "cosplayer": "Rem",
@@ -13,6 +14,7 @@
     },
     {
       "image": "/media/collection/Rem (18 of 28).jpg",
+      "number": 2,
       "title": "Rem (18 of 28)",
       "date": "2025.01",
       "trophy": false,

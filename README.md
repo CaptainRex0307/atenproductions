@@ -22,6 +22,8 @@ All text, contact info, projects and photos live in two files, and you edit them
    category or ★ Trophy Room. These show when someone opens the photo.
 - Hidden photo metadata (camera, lens, settings, GPS location) is **stripped from every uploaded photo** automatically,
   losslessly for JPEGs. Only the date shot is kept, in the list, where you can change it.
+- **To change the order:** edit a photo's **Piece No.** (No. 1 shows first). New uploads get the next number on their own.
+  Avoid giving two photos the same number.
 - **To remove a photo:** delete its file in Media → Collection photos (removing it only from the list brings it back on the next upload).
 - Until you tick any Trophy Room photos, the home page shows your 5 newest.
 - The demo placeholder photos disappear automatically once your first real photo is added.

@@ -111,6 +111,10 @@ content:
         list: true
         fields:
           - { name: image, label: Photo, type: image, options: { media: collection } }
+          - name: number
+            label: Piece No.
+            description: "Sets the order: No. 1 shows first. New photos get the next number automatically. Change it to move a photo."
+            type: number
           - { name: title, label: Name / title, type: string }
           - { name: character, label: "Character (e.g. Makima)", type: string }
           - { name: cosplayer, label: "Cosplayer name", type: string }

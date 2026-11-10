@@ -157,15 +157,23 @@ def main():
     # Remove entries whose photo was deleted from media/collection/
     kept = [p for p in photos if not (str(p.get("image") or "").startswith(URL_PREFIX)
                                       and str(p.get("image")) not in on_disk)]
-    # Add new photos at the end
+    # Add new photos at the end, numbered after the highest Piece No. so far
+    def piece_no(p, i):
+        try:
+            n = int(p.get("number"))
+            return n if n > 0 else i + 1
+        except (TypeError, ValueError):
+            return i + 1
+    next_no = max([piece_no(p, i) for i, p in enumerate(kept) if p.get("image")] or [0]) + 1
     for name in files:
         url = URL_PREFIX + name
         if name in months and url not in listed:
-            kept.append({"image": url, "title": pretty_title(name), "date": months[name],
+            kept.append({"image": url, "number": next_no, "title": pretty_title(name), "date": months[name],
                          "character": "", "cosplayer": "", "cosplayer_instagram": "",
                          "convention": "", "category": "",
                          "shape": "auto", "trophy": False})
-            print(f"added {name}")
+            print(f"added {name} as No. {next_no}")
+            next_no += 1
     # Once real photos exist, drop the demo placeholders (entries with no image)
     if any(p.get("image") for p in kept):
         kept = [p for p in kept if p.get("image")]

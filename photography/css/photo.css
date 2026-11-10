@@ -254,7 +254,13 @@ section:has(> .manga-grid) { container-type: inline-size; }
   background: linear-gradient(transparent, rgba(0,0,0,.85));
   font-weight: 700; font-size: .9rem;
 }
-.panel .label small { display: block; color: var(--blood-2); font-size: .68rem; letter-spacing: .2em; font-weight: 700; }
+.panel .label small {
+  display: block; color: var(--blood-2); font-size: .72rem; letter-spacing: .2em; font-weight: 700;
+  /* thin black outline + soft dark glow so the red reads on any photo */
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000,
+               0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000, 1px 0 0 #000, 0 0 6px rgba(0,0,0,.9);
+}
+.panel .label { text-shadow: 0 1px 2px #000, 0 0 8px rgba(0,0,0,.8); }
 .panel.hide { display: none; }
 @keyframes rise { from { opacity: 0; transform: translateY(14px); } }
 @keyframes sweep { to { transform: translateY(100%); } }
