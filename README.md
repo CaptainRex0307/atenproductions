@@ -18,7 +18,7 @@ All text, contact info, projects and photos live in two files, and you edit them
 1. In Pages CMS open **Media → Collection photos** and drag in as many photos as you like (JPG, PNG or WebP).
 2. Within a minute or two they appear in **The Collection** on their own: numbered, titled from the file name
    (`midnight-alley.jpg` → "Midnight Alley"), dated from the camera, resized if huge, and rotated upright.
-3. Optional: open **Dylan's Collection → Photos** to edit a photo's **name, character, date shot, convention**,
+3. Optional: open **Dylan's Collection → Photos** to edit a photo's **name, character, cosplayer name + Instagram, date shot, convention**,
    category or ★ Trophy Room. These show when someone opens the photo.
 - Hidden photo metadata (camera, lens, settings, GPS location) is **stripped from every uploaded photo** automatically,
   losslessly for JPEGs. Only the date shot is kept, in the list, where you can change it.

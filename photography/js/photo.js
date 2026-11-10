@@ -100,15 +100,30 @@ const lbMedia = document.getElementById("lb-media");
 const lbCap = document.getElementById("lb-cap");
 let current = 0;
 
+// "@rem.cos", "rem.cos", "instagram.com/rem.cos" or a full link → { handle, url }; other links pass through
+function instagram(value) {
+  const v = String(value || "").trim();
+  if (!v) return null;
+  const m = v.match(/^(?:https?:\/\/)?(?:www\.)?instagram\.com\/([A-Za-z0-9._]{1,30})/i) || v.match(/^@?([A-Za-z0-9._]{1,30})$/);
+  if (m) return { handle: m[1], url: `https://www.instagram.com/${m[1]}/` };
+  return /^https?:\/\//i.test(v) ? { handle: "", url: v } : null;
+}
+
 function openLB(i) {
   current = i;
   const p = items[i];
   lbMedia.innerHTML = media(p);
   const line = (parts) => parts.map((x) => String(x || "").trim()).filter(Boolean).map(esc).join(" · ");
   // Case-file details: only the ones filled in are shown
-  const facts = [["Character", p.character], ["Shot", p.date], ["Convention", p.convention]]
-    .filter(([, v]) => String(v || "").trim())
-    .map(([k, v]) => `<span class="lb-fact"><i>${k}</i>${esc(String(v).trim())}</span>`).join("");
+  const ig = instagram(p.cosplayer_instagram);
+  const cosName = String(p.cosplayer || "").trim() || (ig && ig.handle ? "@" + ig.handle : "");
+  const cosplayer = !cosName ? "" : ig
+    ? `<a href="${esc(ig.url)}" target="_blank" rel="noopener">${esc(cosName)}${ig.handle && cosName !== "@" + ig.handle ? ` <em>@${esc(ig.handle)}</em>` : ""} ↗</a>`
+    : esc(cosName);
+  const facts = [["Character", esc(String(p.character || "").trim())], ["Cosplayer", cosplayer],
+                 ["Shot", esc(String(p.date || "").trim())], ["Convention", esc(String(p.convention || "").trim())]]
+    .filter(([, v]) => v)
+    .map(([k, v]) => `<span class="lb-fact"><i>${k}</i>${v}</span>`).join("");
   lbCap.innerHTML = `<small>${line(["No. " + pad(p.no), p.cat.toUpperCase(), p.fav ? "TROPHY ROOM" : ""])}</small>
     <span class="lb-title">${esc(p.title)}</span>
     ${facts ? `<span class="lb-facts">${facts}</span>` : ""}`;
@@ -189,6 +204,7 @@ function init(d) {
     src: p.image, title: p.title || "Untitled", cat: String(p.category || "").trim(),
     date: p.date, shape: p.shape, fav: !!p.trophy, no: i + 1, g: GRADIENTS[i % GRADIENTS.length],
     character: p.character, convention: p.convention,
+    cosplayer: p.cosplayer, cosplayer_instagram: p.cosplayer_instagram,
   }));
   if (mode === "favorites") {
     // Ticked "Trophy Room" photos; if none are ticked yet, show the 5 newest pieces

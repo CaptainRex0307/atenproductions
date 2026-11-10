@@ -113,6 +113,11 @@ content:
           - { name: image, label: Photo, type: image, options: { media: collection } }
           - { name: title, label: Name / title, type: string }
           - { name: character, label: "Character (e.g. Makima)", type: string }
+          - { name: cosplayer, label: "Cosplayer name", type: string }
+          - name: cosplayer_instagram
+            label: Cosplayer Instagram
+            description: "Their @handle or Instagram link (e.g. @rem.cos or instagram.com/rem.cos). Their name on the site links to it."
+            type: string
           - name: date
             label: Date shot
             description: "Any format you like: 2026.10, Oct 31 2026, Halloween 2026... Filled in from the photo when it's added; change it freely."

@@ -27,23 +27,33 @@ jobs:
           python-version: "3.12"
 
       - name: Install Pillow
-        run: pip install --quiet pillow
+        run: pip install --quiet --disable-pip-version-check pillow
 
-      - name: Sync photo list
-        run: python .github/scripts/sync_collection.py .
-
-      - name: Commit changes
+      # Pages CMS saves each dropped photo as its own commit, so several runs can start at once.
+      # Each attempt starts from the newest main and redoes the (idempotent) sync, so runs never
+      # have to merge each other's changes, and nothing the owner saved in the CMS is lost.
+      - name: Sync photo list and commit
         id: commit
         run: |
-          if git diff --quiet; then
-            echo "Nothing to commit"; echo "changed=false" >> "$GITHUB_OUTPUT"; exit 0
-          fi
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add content/photo.json media/collection
-          git commit -m "Add new photos to the collection"
-          for i in 1 2 3; do git pull --rebase origin main && git push origin HEAD:main && break; sleep 5; done
-          echo "changed=true" >> "$GITHUB_OUTPUT"
+          for attempt in 1 2 3 4 5; do
+            git fetch --quiet origin main
+            git reset --quiet --hard FETCH_HEAD
+            python .github/scripts/sync_collection.py .
+            if git diff --quiet && [ -z "$(git ls-files --others --exclude-standard media/collection)" ]; then
+              echo "Nothing to commit"; echo "changed=false" >> "$GITHUB_OUTPUT"; exit 0
+            fi
+            git add content/photo.json media/collection
+            git commit --quiet -m "Add new photos to the collection"
+            if git push origin HEAD:main; then
+              echo "changed=true" >> "$GITHUB_OUTPUT"; exit 0
+            fi
+            echo "main moved while syncing (attempt $attempt), starting again from the latest version"
+            sleep $((attempt * 3))
+          done
+          echo "::error::Could not save the photo list after 5 attempts"; exit 1
 
       - name: Rebuild GitHub Pages
         if: steps.commit.outputs.changed == 'true'

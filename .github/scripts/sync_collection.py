@@ -162,7 +162,8 @@ def main():
         url = URL_PREFIX + name
         if name in months and url not in listed:
             kept.append({"image": url, "title": pretty_title(name), "date": months[name],
-                         "character": "", "convention": "", "category": "",
+                         "character": "", "cosplayer": "", "cosplayer_instagram": "",
+                         "convention": "", "category": "",
                          "shape": "auto", "trophy": False})
             print(f"added {name}")
     # Once real photos exist, drop the demo placeholders (entries with no image)
