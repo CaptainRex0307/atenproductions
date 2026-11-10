@@ -47,7 +47,7 @@ function render() {
     el.setAttribute("aria-label", `Open ${p.title || "photo"}`);
     el.innerHTML = `${media(p)}
       <span class="tag${p.fav ? " fav" : ""}">No. ${pad(p.no)}${p.fav ? " ★" : ""}</span>
-      <figcaption class="label"><small>${esc(p.cat.toUpperCase())}${p.date ? " · ACQUIRED " + esc(p.date) : ""}</small>${esc(p.title)}</figcaption>`;
+      <figcaption class="label"><small>${esc([p.cat.toUpperCase(), p.date ? "ACQUIRED " + p.date : ""].filter(Boolean).join(" · "))}</small>${esc(p.title)}</figcaption>`;
     el.addEventListener("click", () => openLB(i));
     el.addEventListener("keydown", (e) => { if (e.key === "Enter") openLB(i); });
     // Smart auto: a landscape photo (wider than ~5:4) gets a wide box instead
@@ -63,7 +63,7 @@ function render() {
   visible = items.map((_, i) => i);
 
   if (filters) {
-    ["All", "★ Trophy Room", ...new Set(items.map((p) => p.cat))].forEach((c) => {
+    ["All", "★ Trophy Room", ...new Set(items.map((p) => p.cat).filter(Boolean))].forEach((c) => {
       const b = document.createElement("button");
       b.textContent = c;
       b.setAttribute("role", "tab");
@@ -104,7 +104,7 @@ function openLB(i) {
   current = i;
   const p = items[i];
   lbMedia.innerHTML = media(p);
-  lbCap.innerHTML = `<small>No. ${pad(p.no)} · ${esc(p.cat.toUpperCase())}${p.fav ? " · TROPHY ROOM" : ""}</small>${esc(p.title)}`;
+  lbCap.innerHTML = `<small>${esc(["No. " + pad(p.no), p.cat.toUpperCase(), p.fav ? "TROPHY ROOM" : ""].filter(Boolean).join(" · "))}</small>${esc(p.title)}`;
   lb.hidden = false;
   document.body.style.overflow = "hidden";
 }
@@ -179,11 +179,19 @@ function init(d) {
   const photos = (d.photos || []).filter((p) => p && (p.image || p.title));
   // Map CMS fields to what the gallery uses; each keeps its catalogue number
   items = photos.map((p, i) => ({
-    src: p.image, title: p.title || "Untitled", cat: p.category || "Uncategorised",
+    src: p.image, title: p.title || "Untitled", cat: String(p.category || "").trim(),
     date: p.date, shape: p.shape, fav: !!p.trophy, no: i + 1, g: GRADIENTS[i % GRADIENTS.length],
-  })).filter((p) => mode !== "favorites" || p.fav);
+  }));
+  if (mode === "favorites") {
+    // Ticked "Trophy Room" photos; if none are ticked yet, show the 5 newest pieces
+    const favs = items.filter((p) => p.fav);
+    items = favs.length ? favs : items.slice(-5).reverse();
+  }
   counters(photos.length);
   render();
+  if (grid && !items.length) {
+    grid.innerHTML = `<p class="empty-archive mono">// THE ARCHIVE IS EMPTY. NEW ACQUISITIONS ARRIVING SOON.</p>`;
+  }
 
   const bio = document.getElementById("bio");
   if (bio) bio.innerHTML = Site.paragraphs(d.bio);

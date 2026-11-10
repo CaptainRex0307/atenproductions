@@ -14,6 +14,15 @@ All text, contact info, projects and photos live in two files, and you edit them
    - **Media:** every image or PDF you've uploaded
 4. Change anything and click **Save**. The live site updates on its own in about 1–2 minutes.
 
+### 📸 Adding photos: just drop them in
+1. In Pages CMS open **Media → Collection photos** and drag in as many photos as you like (JPG, PNG or WebP).
+2. Within a minute or two they appear in **The Collection** on their own: numbered, titled from the file name
+   (`midnight-alley.jpg` → "Midnight Alley"), dated from the camera, resized if huge, and rotated upright.
+3. Optional: open **Dylan's Collection → Photos** to give them a title, category or ★ Trophy Room tick.
+- **To remove a photo:** delete its file in Media → Collection photos (removing it only from the list brings it back on the next upload).
+- Until you tick any Trophy Room photos, the home page shows your 5 newest.
+- The demo placeholder photos disappear automatically once your first real photo is added.
+
 Tips
 - Leave a field empty to hide it (e.g. no phone number = no phone row).
 - Drag list items to reorder them. The top photo is No. 001.

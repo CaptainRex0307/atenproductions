@@ -412,3 +412,4 @@ section:has(> .manga-grid) { container-type: inline-size; }
   letter-spacing: .12em; text-transform: uppercase; color: var(--blood-2);
 }
 .counter-label small { display: block; margin-top: .5rem; font-family: var(--f-jp); font-size: .55em; letter-spacing: .3em; color: var(--ash); }
+.empty-archive { grid-column: 1 / -1; padding: 3rem 1rem; text-align: center; color: var(--ash); border: 1px dashed var(--line); }

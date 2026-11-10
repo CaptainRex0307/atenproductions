@@ -4,8 +4,17 @@
 # rebuilds automatically.
 
 media:
-  input: media
-  output: /media
+  # Drag photos in here (Media → Collection photos) and they're added to The Collection automatically
+  - name: collection
+    label: Collection photos (drop photos here)
+    input: media/collection
+    output: /media/collection
+    extensions: [jpg, jpeg, png, webp]
+  # Everything else: project stills, portrait, résumé PDF
+  - name: files
+    label: Other uploads
+    input: media
+    output: /media
 
 content:
   # ---------------------------------------------------------------
@@ -45,7 +54,7 @@ content:
           - { name: category, label: "Type (e.g. Live Event)", type: string }
           - { name: description, label: Description / your role, type: text }
           - { name: tags, label: Tags, type: string, list: true }
-          - { name: image, label: Photo or still, type: image }
+          - { name: image, label: Photo or still, type: image, options: { media: files } }
       - name: services
         label: Services
         type: object
@@ -73,6 +82,7 @@ content:
         label: Résumé (PDF)
         description: Leave empty to hide the Download Résumé button.
         type: file
+        options: { media: files }
       - name: timeline
         label: Experience timeline
         type: object
@@ -96,11 +106,11 @@ content:
     fields:
       - name: photos
         label: Photos (The Collection)
-        description: Top of the list = No. 001. Tick "Trophy Room" to feature a photo on the home page (5 looks best).
+        description: "Photos dropped into Media → Collection photos appear here on their own within a minute or two. Use this list to add titles, categories and Trophy Room ticks. To remove a photo, delete its file in Media. Top of the list = No. 001."
         type: object
         list: true
         fields:
-          - { name: image, label: Photo, type: image }
+          - { name: image, label: Photo, type: image, options: { media: collection } }
           - { name: title, label: Title, type: string }
           - { name: category, label: "Category (e.g. Night, Street, Portraits)", type: string }
           - { name: date, label: "Acquired (e.g. 2026.10)", type: string }
@@ -124,6 +134,7 @@ content:
       - name: portrait
         label: Your portrait (optional)
         type: image
+        options: { media: files }
       - name: dossier
         label: Curator dossier
         type: object
