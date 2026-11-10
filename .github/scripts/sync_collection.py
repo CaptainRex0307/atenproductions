@@ -3,13 +3,14 @@ Sync media/collection/ with the photo list in content/photo.json.
 
 Runs on GitHub Actions whenever photos are added to or removed from media/collection/
 (e.g. dragged into Pages CMS → Media → "Collection photos"). It:
-  * shrinks oversized photos and fixes phone rotation (EXIF), so the site stays fast
+  * shrinks oversized photos and fixes phone rotation, so the site stays fast
+  * strips hidden metadata (camera, lens, settings, GPS location) from every photo file,
+    losslessly for JPEGs, so none of it is published
   * adds every new photo to the end of the list (next No.), titled from its file name,
-    dated from the camera's EXIF date (else today), with camera / lens / settings read from EXIF
-  * fills in missing camera details on existing entries (never overwrites what the owner typed)
+    with the date it was shot (from the camera, else today)
   * removes list entries whose file was deleted from media/collection/
   * drops the demo placeholder entries (no image) once real photos exist
-Existing entries keep everything the owner set (title, category, Trophy Room, shape).
+Existing entries keep everything the owner set (title, date, character, convention, category, Trophy Room, shape).
 """
 import datetime
 import json
@@ -48,62 +49,91 @@ def exif_month(img):
     return datetime.date.today().strftime("%Y.%m")
 
 
-def _num(v):
-    try:
-        return float(v)
-    except Exception:
-        try:
-            return v[0] / v[1]
-        except Exception:
-            return None
+# JPEG segments that carry hidden metadata: APP1 (EXIF: camera, settings, GPS / XMP), APP13 (IPTC), COM (comments).
+# Colour profiles (APP2) and the JFIF/Adobe headers are kept so colours stay right.
+_META_MARKERS = {0xE1, 0xED, 0xFE}
 
 
-def exif_camera(img):
-    """Camera body, lens and settings ('35mm · f/1.8 · 1/200s · ISO 800') from EXIF, '' when missing."""
-    try:
-        exif = img.getexif()
-        sub = exif.get_ifd(0x8769)
-    except Exception:
-        return {"body": "", "lens": "", "settings": ""}
-    make = str(exif.get(271) or "").strip().strip("\x00")
-    model = str(exif.get(272) or "").strip().strip("\x00")
-    body = model if (not make or model.lower().startswith(make.split()[0].lower())) else f"{make.title() if make.isupper() else make} {model}"
-    lens = str(sub.get(42036) or "").strip().strip("\x00")
-    parts = []
-    focal, fnum, exp, iso = _num(sub.get(37386)), _num(sub.get(33437)), _num(sub.get(33434)), sub.get(34855)
-    if focal: parts.append(f"{focal:g}mm")
-    if fnum: parts.append(f"f/{fnum:.1f}".replace(".0", ""))
-    if exp:
-        parts.append(f"1/{round(1 / exp)}s" if exp < 1 else f"{exp:g}s")
-    if isinstance(iso, (tuple, list)): iso = iso[0] if iso else None
-    if iso: parts.append(f"ISO {iso}")
-    return {"body": body.strip(), "lens": lens, "settings": " · ".join(parts)}
+def _jpeg_segments(data):
+    """Yield (marker, start, end) for each header segment of a JPEG, stopping at the image data."""
+    i = 2
+    while i + 4 <= len(data) and data[i] == 0xFF:
+        marker = data[i + 1]
+        if marker == 0xDA:                      # start of image data: everything after is pixels
+            return
+        if marker == 0xFF:                      # padding byte
+            i += 1
+            continue
+        if 0xD0 <= marker <= 0xD9 or marker == 0x01:
+            i += 2
+            continue
+        length = int.from_bytes(data[i + 2:i + 4], "big")
+        yield marker, i, i + 2 + length
+        i += 2 + length
+
+
+def strip_jpeg_metadata(path):
+    """Remove EXIF/XMP/IPTC/comments from a JPEG without re-compressing it. Returns True if anything was removed."""
+    with open(path, "rb") as f:
+        data = f.read()
+    if data[:2] != b"\xff\xd8":
+        return False
+    cut = [(a, b) for m, a, b in _jpeg_segments(data) if m in _META_MARKERS]
+    if not cut:
+        return False
+    out, pos = bytearray(), 0
+    for a, b in cut:
+        out += data[pos:a]
+        pos = b
+    out += data[pos:]
+    with open(path, "wb") as f:
+        f.write(out)
+    return True
+
+
+_KEEP_INFO = {"icc_profile", "dpi", "gamma", "transparency", "srgb", "aspect", "chromaticity", "loop", "duration", "background"}
 
 
 def optimise(path):
-    """Fix rotation and shrink big photos in place. Returns (month, camera details) read before any change."""
+    """Fix rotation, shrink big photos and strip hidden metadata (camera, settings, GPS) in place.
+    Returns the month the photo was shot, read before the metadata is removed."""
     with Image.open(path) as img:
         month = exif_month(img)
-        camera = exif_camera(img)
         size = os.path.getsize(path)
+        fmt = (img.format or "JPEG").upper()
+        icc = img.info.get("icc_profile")
         rotated = img.getexif().get(274, 1) != 1     # phone photo stored sideways
         too_big = max(img.size) > MAX_SIDE
-        if not (rotated or too_big):                 # already fine: never re-compress
-            return month, camera
-        upright = ImageOps.exif_transpose(img)
-        if upright is None:
-            return month, camera
-        out = upright.copy()
-        out.thumbnail((MAX_SIDE, MAX_SIDE), Image.LANCZOS)
-        fmt = (img.format or "JPEG").upper()
+        if rotated or too_big:                       # re-encode once; metadata is not carried over
+            upright = ImageOps.exif_transpose(img) or img
+            out = upright.copy()
+            out.thumbnail((MAX_SIDE, MAX_SIDE), Image.LANCZOS)
+            kw = {"icc_profile": icc} if icc else {}
+            if fmt in ("JPEG", "MPO"):
+                out.convert("RGB").save(path, "JPEG", quality=85, optimize=True, progressive=True, **kw)
+            elif fmt == "WEBP":
+                out.save(path, "WEBP", quality=85, **kw)
+            else:
+                out.save(path, optimize=True, **kw)
+            print(f"optimised {os.path.basename(path)}: {img.size} {size // 1024}KB -> {out.size} {os.path.getsize(path) // 1024}KB")
+            return month
+        has_meta = bool(img.getexif()) or any(k not in _KEEP_INFO for k in img.info)
+        if not has_meta:                             # already clean: never touch it again
+            return month
         if fmt in ("JPEG", "MPO"):
-            out.convert("RGB").save(path, "JPEG", quality=85, optimize=True, progressive=True)
-        elif fmt == "WEBP":
-            out.save(path, "WEBP", quality=85)
-        else:
-            out.save(path, optimize=True)
-        print(f"optimised {os.path.basename(path)}: {img.size} {size // 1024}KB -> {out.size} {os.path.getsize(path) // 1024}KB")
-        return month, camera
+            pass                                     # handled losslessly below, after the file is closed
+        else:                                        # PNG (lossless) / WebP: re-save without metadata
+            out = img.copy()
+            kw = {"icc_profile": icc} if icc else {}
+            if fmt == "WEBP":
+                out.save(path, "WEBP", quality=90, **kw)
+            else:
+                out.save(path, optimize=True, **kw)
+            print(f"removed hidden metadata from {os.path.basename(path)}")
+            return month
+    if strip_jpeg_metadata(path):
+        print(f"removed hidden metadata from {os.path.basename(path)}")
+    return month
 
 
 def main():
@@ -114,10 +144,10 @@ def main():
 
     files = sorted(n for n in (os.listdir(FOLDER) if os.path.isdir(FOLDER) else [])
                    if os.path.splitext(n)[1].lower() in EXTS and not n.startswith("."))
-    months, cameras = {}, {}
+    months = {}
     for name in files:
         try:
-            months[name], cameras[name] = optimise(os.path.join(FOLDER, name))
+            months[name] = optimise(os.path.join(FOLDER, name))
         except Exception as e:                 # unreadable file: leave it, don't break the run
             print(f"skipped {name}: {e}")
 
@@ -127,23 +157,13 @@ def main():
     # Remove entries whose photo was deleted from media/collection/
     kept = [p for p in photos if not (str(p.get("image") or "").startswith(URL_PREFIX)
                                       and str(p.get("image")) not in on_disk)]
-    # Fill in missing camera details on existing entries (only empty fields)
-    by_url = {URL_PREFIX + n: cameras[n] for n in cameras}
-    for p in kept:
-        found = by_url.get(str(p.get("image") or ""))
-        if not found:
-            continue
-        cam = p.get("camera") if isinstance(p.get("camera"), dict) else {}
-        merged = {k: (cam.get(k) or found.get(k) or "") for k in ("body", "lens", "settings")}
-        if merged != cam:
-            p["camera"] = merged
     # Add new photos at the end
     for name in files:
         url = URL_PREFIX + name
         if name in months and url not in listed:
-            kept.append({"image": url, "title": pretty_title(name), "category": "",
-                         "date": months[name], "location": "", "subject": "", "description": "",
-                         "camera": cameras[name], "shape": "auto", "trophy": False})
+            kept.append({"image": url, "title": pretty_title(name), "date": months[name],
+                         "character": "", "convention": "", "category": "",
+                         "shape": "auto", "trophy": False})
             print(f"added {name}")
     # Once real photos exist, drop the demo placeholders (entries with no image)
     if any(p.get("image") for p in kept):

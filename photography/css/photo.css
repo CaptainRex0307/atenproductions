@@ -317,9 +317,9 @@ section:has(> .manga-grid) { container-type: inline-size; }
 .lb-media .ph { width: min(80vw, 720px); aspect-ratio: 3 / 2; background: var(--g); }
 .lightbox figcaption { color: var(--bone); text-align: center; margin: 1rem auto 0; max-width: 680px; display: grid; gap: .35rem; }
 .lb-title { font-family: var(--f-display); font-size: 1.5rem; letter-spacing: .06em; }
-.lb-meta { color: var(--bone); opacity: .85; }
-.lb-story { color: var(--ash); font-size: .95rem; line-height: 1.6; }
-.lb-gear { font-family: var(--f-type); color: var(--ash); font-size: .78rem; letter-spacing: .08em; }
+.lb-facts { display: flex; flex-wrap: wrap; justify-content: center; gap: .4rem 1.6rem; }
+.lb-fact { display: grid; color: var(--bone); }
+.lb-fact i { font-style: normal; font-family: var(--f-type); font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; color: var(--blood-2); }
 .lightbox figcaption small { display: block; color: var(--blood-2); letter-spacing: .2em; font-size: .7rem; }
 .lb-close, .lb-nav {
   background: transparent; color: var(--bone); border: 1px solid var(--bone);
