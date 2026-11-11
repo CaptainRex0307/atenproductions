@@ -427,3 +427,26 @@ section:has(> .manga-grid) { container-type: inline-size; }
 .lb-fact a { color: var(--bone); text-decoration: none; border-bottom: 1px solid var(--blood); }
 .lb-fact a:hover { color: var(--blood-2); }
 .lb-fact a em { font-style: normal; color: var(--ash); font-size: .85em; }
+
+/* Collection filters: category buttons + Character / Cosplayer menus */
+.filters { flex-direction: column; align-items: flex-end; gap: .7rem; }
+.filter-buttons { display: flex; gap: .4rem; flex-wrap: wrap; justify-content: flex-end; }
+.filter-menus { display: flex; gap: .8rem; flex-wrap: wrap; align-items: end; justify-content: flex-end; }
+.filter-menu { display: grid; gap: .25rem; }
+.filter-menu span { font-family: var(--f-type); font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; color: var(--blood-2); }
+.filter-menu select {
+  font: inherit; font-size: .9rem; color: var(--bone); background: var(--panel);
+  border: 1px solid var(--line); border-left: 3px solid var(--blood); padding: .45rem 2rem .45rem .7rem; min-width: 11rem;
+  appearance: none; cursor: pointer;
+  background-image: linear-gradient(45deg, transparent 50%, var(--blood-2) 50%), linear-gradient(135deg, var(--blood-2) 50%, transparent 50%);
+  background-position: right 1rem center, right .65rem center; background-size: 6px 6px; background-repeat: no-repeat;
+}
+.filter-menu select:focus { outline: 1px solid var(--blood-2); }
+.filter-clear { font: inherit; font-size: .8rem; background: none; border: 0; color: var(--ash); cursor: pointer; padding: .45rem 0; text-decoration: underline; }
+.filter-clear:hover { color: var(--blood-2); }
+.lb-all { font-family: var(--f-type); font-size: .72rem; color: var(--blood-2); text-decoration: none; margin-left: .3rem; white-space: nowrap; }
+.lb-all:hover { text-decoration: underline; }
+@media (max-width: 860px) {
+  .filters, .filter-buttons, .filter-menus { align-items: flex-start; justify-content: flex-start; }
+  .filter-menu select { min-width: 9.5rem; }
+}

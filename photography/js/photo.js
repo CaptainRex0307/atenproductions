@@ -47,7 +47,7 @@ function render() {
     el.setAttribute("aria-label", `Open ${p.title || "photo"}`);
     el.innerHTML = `${media(p)}
       <span class="tag${p.fav ? " fav" : ""}">No. ${pad(p.no)}${p.fav ? " ★" : ""}</span>
-      <figcaption class="label"><small>${esc([p.cat.toUpperCase(), p.date ? "ACQUIRED " + p.date : ""].filter(Boolean).join(" · "))}</small>${esc(p.title)}</figcaption>`;
+      <figcaption class="label"><small>${esc([p.cat, p.character, p.date ? "ACQUIRED " + p.date : ""].map((x) => String(x || "").trim().toUpperCase()).filter(Boolean).join(" · "))}</small>${esc(p.title)}</figcaption>`;
     el.addEventListener("click", () => openLB(i));
     el.addEventListener("keydown", (e) => { if (e.key === "Enter") openLB(i); });
     // Smart auto: a landscape photo (wider than ~5:4) gets a wide box instead
@@ -62,27 +62,84 @@ function render() {
   });
   visible = items.map((_, i) => i);
 
-  if (filters) {
-    ["All", "★ Trophy Room", ...new Set(items.map((p) => p.cat).filter(Boolean))].forEach((c) => {
-      const b = document.createElement("button");
-      b.textContent = c;
-      b.setAttribute("role", "tab");
-      b.setAttribute("aria-selected", c === "All");
-      b.addEventListener("click", () => setFilter(c));
-      filters.appendChild(b);
-    });
-  }
+  if (filters) buildFilters();
 }
 
-function setFilter(cat) {
-  filters.querySelectorAll("button").forEach((b) => b.setAttribute("aria-selected", b.textContent === cat));
+// ---------- Filters (Collection page): category buttons + Character / Cosplayer menus ----------
+// Each can be linked to directly: collection/?character=Rem&cosplayer=Ana&category=Cosplay
+const norm = (v) => String(v || "").trim().toLowerCase();
+const filterState = { category: "All", character: "", cosplayer: "" };
+
+function buildFilters() {
+  const q = new URLSearchParams(location.search);
+  filterState.category = q.get("category") || (q.get("trophy") !== null ? "★ Trophy Room" : "All");
+  filterState.character = q.get("character") || "";
+  filterState.cosplayer = q.get("cosplayer") || "";
+
+  const cats = ["All", "★ Trophy Room", ...new Set(items.map((p) => p.cat).filter(Boolean))];
+  filters.innerHTML = `<div class="filter-buttons">${cats.map((c) =>
+    `<button role="tab" data-cat="${esc(c)}">${esc(c)}</button>`).join("")}</div>`;
+  filters.querySelectorAll("button[data-cat]").forEach((btn) =>
+    btn.addEventListener("click", () => { filterState.category = btn.dataset.cat; applyFilters(); }));
+
+  // Dropdowns list every character / cosplayer used, with how many pieces each has
+  const menu = (key, label) => {
+    const counts = new Map();
+    items.forEach((p) => {
+      const v = String(p[key] || "").trim();
+      if (!v) return;
+      const c = counts.get(norm(v)) || { name: v, n: 0 };
+      c.n++; counts.set(norm(v), c);
+    });
+    if (!counts.size) return "";
+    const opts = [...counts.values()].sort((a, b) => a.name.localeCompare(b.name))
+      .map((c) => `<option value="${esc(c.name)}">${esc(c.name)} (${c.n})</option>`).join("");
+    return `<label class="filter-menu"><span>${label}</span>
+      <select data-key="${key}"><option value="">All</option>${opts}</select></label>`;
+  };
+  const menus = menu("character", "Character") + menu("cosplayer", "Cosplayer");
+  if (menus) filters.insertAdjacentHTML("beforeend", `<div class="filter-menus">${menus}
+    <button type="button" class="filter-clear" hidden>✕ Clear filters</button></div>`);
+  filters.querySelectorAll("select[data-key]").forEach((sel) =>
+    sel.addEventListener("change", () => { filterState[sel.dataset.key] = sel.value; applyFilters(); }));
+  filters.querySelector(".filter-clear")?.addEventListener("click", () => {
+    Object.assign(filterState, { category: "All", character: "", cosplayer: "" });
+    applyFilters();
+  });
+  applyFilters();
+}
+
+function applyFilters() {
+  const { category, character, cosplayer } = filterState;
+  filters.querySelectorAll("button[data-cat]").forEach((b) => b.setAttribute("aria-selected", b.dataset.cat === category));
+  filters.querySelectorAll("select[data-key]").forEach((sel) => {
+    const want = norm(filterState[sel.dataset.key]);
+    const opt = [...sel.options].find((o) => norm(o.value) === want);
+    sel.value = opt ? opt.value : "";
+  });
+  const clear = filters.querySelector(".filter-clear");
+  if (clear) clear.hidden = category === "All" && !character && !cosplayer;
+
   visible = [];
   grid.querySelectorAll(".panel").forEach((el) => {
     const p = items[+el.dataset.index];
-    const show = cat === "All" || (cat.startsWith("★") ? p.fav : p.cat === cat);
+    const show = (category === "All" || (category.startsWith("★") ? p.fav : p.cat === category))
+      && (!character || norm(p.character) === norm(character))
+      && (!cosplayer || norm(p.cosplayer) === norm(cosplayer));
     el.classList.toggle("hide", !show);
     if (show) visible.push(+el.dataset.index);
   });
+  const none = grid.querySelector(".empty-filter");
+  if (!visible.length && items.length) {
+    if (!none) grid.insertAdjacentHTML("beforeend", `<p class="empty-filter empty-archive mono">// NO PIECES MATCH THESE FILTERS.</p>`);
+  } else if (none) none.remove();
+
+  // Keep the address bar in sync so a filtered view can be shared
+  const q = new URLSearchParams();
+  if (category !== "All") { if (category.startsWith("★")) q.set("trophy", "1"); else q.set("category", category); }
+  if (character) q.set("character", character);
+  if (cosplayer) q.set("cosplayer", cosplayer);
+  history.replaceState(null, "", location.pathname + (q.toString() ? "?" + q : "") + location.hash);
 }
 
 // ---------- Acquisition counters ----------
@@ -120,7 +177,11 @@ function openLB(i) {
   const cosplayer = !cosName ? "" : ig
     ? `<a href="${esc(ig.url)}" target="_blank" rel="noopener">${esc(cosName)}${ig.handle && cosName !== "@" + ig.handle ? ` <em>@${esc(ig.handle)}</em>` : ""} ↗</a>`
     : esc(cosName);
-  const facts = [["Character", esc(String(p.character || "").trim())], ["Cosplayer", cosplayer],
+  // "⌕ all" opens the Collection filtered to that character / cosplayer
+  const allLink = (key, v) => v ? ` <a class="lb-all" href="${mode === "all" ? "" : "collection/"}?${key}=${encodeURIComponent(v)}" title="All pieces with ${esc(v)}">⌕ all</a>` : "";
+  const charName = String(p.character || "").trim();
+  const facts = [["Character", charName ? esc(charName) + allLink("character", charName) : ""],
+                 ["Cosplayer", cosplayer ? cosplayer + allLink("cosplayer", String(p.cosplayer || "").trim()) : ""],
                  ["Shot", esc(String(p.date || "").trim())], ["Convention", esc(String(p.convention || "").trim())]]
     .filter(([, v]) => v)
     .map(([k, v]) => `<span class="lb-fact"><i>${k}</i>${v}</span>`).join("");

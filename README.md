@@ -22,6 +22,9 @@ All text, contact info, projects and photos live in two files, and you edit them
    category or ★ Trophy Room. These show when someone opens the photo.
 - Hidden photo metadata (camera, lens, settings, GPS location) is **stripped from every uploaded photo** automatically,
   losslessly for JPEGs. Only the date shot is kept, in the list, where you can change it.
+- **Filtering:** The Collection page has **Character** and **Cosplayer** menus (built from what you type in those fields)
+  next to the category buttons. Filtered views have their own link to share, e.g.
+  `…/photography/collection/?cosplayer=Ana` shows only Ana's pieces, handy to send to a cosplayer.
 - **To change the order:** edit a photo's **Piece No.** (No. 1 shows first). New uploads get the next number on their own.
   Avoid giving two photos the same number.
 - **To remove a photo:** delete its file in Media → Collection photos (removing it only from the list brings it back on the next upload).
