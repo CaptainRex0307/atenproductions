@@ -3,6 +3,7 @@ Sync media/collection/ with the photo list in content/photo.json.
 
 Runs on GitHub Actions whenever photos are added to or removed from media/collection/
 (e.g. dragged into Pages CMS → Media → "Collection photos"). It:
+  * converts iPhone HEIC/HEIF photos to JPG (browsers can't show HEIC)
   * shrinks oversized photos and fixes phone rotation, so the site stays fast
   * strips hidden metadata (camera, lens, settings, GPS location) from every photo file,
     losslessly for JPEGs, so none of it is published
@@ -20,11 +21,19 @@ import sys
 
 from PIL import Image, ImageOps
 
+try:                                    # iPhone photos (.heic / .heif)
+    from pillow_heif import register_heif_opener
+    register_heif_opener()
+    HEIF_OK = True
+except ImportError:
+    HEIF_OK = False
+
 ROOT = sys.argv[1] if len(sys.argv) > 1 else "."
 FOLDER = os.path.join(ROOT, "media", "collection")
 CONTENT = os.path.join(ROOT, "content", "photo.json")
 URL_PREFIX = "/media/collection/"
 EXTS = {".jpg", ".jpeg", ".png", ".webp"}
+HEIF_EXTS = {".heic", ".heif"}
 MAX_SIDE = 2160          # longest edge after resizing (Instagram 4:5 at 1080 wide = 1350 tall)
 
 
@@ -136,12 +145,42 @@ def optimise(path):
     return month
 
 
+def convert_heif(folder):
+    """Turn each .heic/.heif into an upright .jpg next to it (keeping the date shot), then delete the original."""
+    for name in sorted(os.listdir(folder) if os.path.isdir(folder) else []):
+        stem, ext = os.path.splitext(name)
+        if ext.lower() not in HEIF_EXTS:
+            continue
+        if not HEIF_OK:
+            print(f"skipped {name}: HEIC support not installed")
+            continue
+        src = os.path.join(folder, name)
+        target, n = os.path.join(folder, stem + ".jpg"), 2
+        while os.path.exists(target):
+            target, n = os.path.join(folder, f"{stem} ({n}).jpg"), n + 1
+        try:
+            with Image.open(src) as img:
+                exif = img.getexif()
+                when = exif.get_ifd(0x8769).get(36867) or exif.get(306)
+                out = (ImageOps.exif_transpose(img) or img).convert("RGB")
+                out.thumbnail((MAX_SIDE, MAX_SIDE), Image.LANCZOS)
+                keep = Image.Exif()                    # carry only the date shot over, nothing else
+                if when:
+                    keep.get_ifd(0x8769)[36867] = when
+                out.save(target, "JPEG", quality=88, optimize=True, progressive=True, exif=keep.tobytes())
+            os.remove(src)
+            print(f"converted {name} -> {os.path.basename(target)}")
+        except Exception as e:
+            print(f"skipped {name}: {e}")
+
+
 def main():
     with open(CONTENT, encoding="utf-8") as f:
         data = json.load(f)
     photos = [p for p in (data.get("photos") or []) if isinstance(p, dict)]
     before = json.dumps(data.get("photos"), sort_keys=True)   # snapshot: entries get edited in place below
 
+    convert_heif(FOLDER)
     files = sorted(n for n in (os.listdir(FOLDER) if os.path.isdir(FOLDER) else [])
                    if os.path.splitext(n)[1].lower() in EXTS and not n.startswith("."))
     months = {}

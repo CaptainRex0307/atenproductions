@@ -27,7 +27,7 @@ jobs:
           python-version: "3.12"
 
       - name: Install Pillow
-        run: pip install --quiet --disable-pip-version-check pillow
+        run: pip install --quiet --disable-pip-version-check pillow pillow-heif
 
       # Pages CMS saves each dropped photo as its own commit, so several runs can start at once.
       # Each attempt starts from the newest main and redoes the (idempotent) sync, so runs never

@@ -9,7 +9,7 @@ media:
     label: Collection photos (drop photos here)
     input: media/collection
     output: /media/collection
-    extensions: [jpg, jpeg, png, webp]
+    extensions: [jpg, jpeg, png, webp, heic, heif]
   # Everything else: project stills, portrait, résumé PDF
   - name: files
     label: Other uploads

@@ -25,6 +25,10 @@ All text, contact info, projects and photos live in two files, and you edit them
 - **Filtering:** The Collection page has **Character** and **Cosplayer** menus (built from what you type in those fields)
   next to the category buttons. Filtered views have their own link to share, e.g.
   `…/photography/collection/?cosplayer=Ana` shows only Ana's pieces, handy to send to a cosplayer.
+- **Upload trouble?** Pages CMS can only take files up to about **3 MB** each. For bigger photos, drop them on
+  https://github.com/CaptainRex0307/atenproductions/upload/main/media/collection and click **Commit changes**
+  (up to 25 MB each, many at once). They're resized automatically either way.
+  iPhone **HEIC** photos are fine; they're converted to JPG automatically.
 - **To change the order:** edit a photo's **Piece No.** (No. 1 shows first). New uploads get the next number on their own.
   Avoid giving two photos the same number.
 - **To remove a photo:** delete its file in Media → Collection photos (removing it only from the list brings it back on the next upload).

@@ -18,7 +18,7 @@ The owner edits content through **Pages CMS** (app.pagescms.org), which commits 
 - `content/photo.json` → `photography/index.html` (Trophy Room: photos with `trophy: true`) `photography/collection/` (all photos) and `photography/book/` (booking page: two Google Forms, `booking.convention.form_url` and `booking.anytime.form_url`; options without a link are hidden), rendered by `photography/js/photo.js`
 - `js/content.js` → shared loader; each page sets `<html data-root="...">` = path back to the site root
 - `media/collection/` → photos dropped here are added to `content/photo.json` → `photos` automatically by
-  `.github/workflows/sync-collection.yml` (runs `.github/scripts/sync_collection.py`: resizes, fixes rotation, strips EXIF/GPS/XMP metadata from the files
+  `.github/workflows/sync-collection.yml` (runs `.github/scripts/sync_collection.py`: converts HEIC/HEIF to JPG, resizes, fixes rotation, strips EXIF/GPS/XMP metadata from the files
   (the owner doesn't want camera settings published), appends new
   entries numbered after the highest `number` (Piece No., which sets display order), removes entries whose file was deleted,
   drops imageless placeholders). Don't hand-edit entries for those files' paths.
