@@ -184,7 +184,7 @@ function openLB(i) {
                  ["Cosplayer", cosplayer ? cosplayer + allLink("cosplayer", String(p.cosplayer || "").trim()) : ""],
                  ["Shot", esc(String(p.date || "").trim())], ["Convention", esc(String(p.convention || "").trim())]]
     .filter(([, v]) => v)
-    .map(([k, v]) => `<span class="lb-fact"><i>${k}</i>${v}</span>`).join("");
+    .map(([k, v]) => `<span class="lb-fact"><i>${k}</i><span>${v}</span></span>`).join("");
   lbCap.innerHTML = `<small>${line(["No. " + pad(p.no), p.cat.toUpperCase(), p.fav ? "TROPHY ROOM" : ""])}</small>
     <span class="lb-title">${esc(p.title)}</span>
     ${facts ? `<span class="lb-facts">${facts}</span>` : ""}`;
