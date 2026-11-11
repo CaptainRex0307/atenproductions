@@ -29,15 +29,15 @@
     {
       "image": "/media/collection/Rem (28 of 28).jpg",
       "number": 3,
-      "title": "Rem (28 of 28)",
+      "title": "Krul Tepes Sitting",
+      "character": "Krul Tepes",
+      "cosplayer": "Rem",
+      "cosplayer_instagram": "@remyulmao",
       "date": "2025.01",
-      "character": "",
-      "cosplayer": "",
-      "cosplayer_instagram": "",
-      "convention": "",
-      "category": "",
-      "shape": "auto",
-      "trophy": false
+      "convention": "Photoshoot",
+      "category": "Cosplay",
+      "trophy": true,
+      "shape": "auto"
     }
   ],
   "name": "[Your Name]",
