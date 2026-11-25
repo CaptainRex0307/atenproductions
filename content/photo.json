@@ -202,13 +202,13 @@
       "cosplayer_instagram": "@luxraey",
       "date": "8/22/2026",
       "convention": "Anime Impulse OC",
-      "trophy": false,
+      "trophy": true,
       "shape": "auto"
     },
     {
       "image": "/media/collection/Iarvum (19 of 21).jpg",
       "number": 18,
-      "title": "Iarvum (19 of 21)",
+      "cosplayer": "Iarvum",
       "date": "2025.01",
       "trophy": false,
       "shape": "auto"
@@ -217,6 +217,7 @@
       "image": "/media/collection/Iarvum (2 of 21).jpg",
       "number": 19,
       "title": "Iarvum (2 of 21)",
+      "cosplayer": "Iarvum",
       "date": "2025.01",
       "trophy": false,
       "shape": "auto"
@@ -225,6 +226,7 @@
       "image": "/media/collection/Iarvum (21 of 21).jpg",
       "number": 20,
       "title": "Iarvum (21 of 21)",
+      "cosplayer": "Iarvum",
       "date": "2025.01",
       "trophy": false,
       "shape": "auto"
@@ -233,6 +235,7 @@
       "image": "/media/collection/Iarvum (9 of 21).jpg",
       "number": 21,
       "title": "Iarvum (9 of 21)",
+      "cosplayer": "Iarvum",
       "date": "2025.01",
       "trophy": false,
       "shape": "auto"
