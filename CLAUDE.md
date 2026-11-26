@@ -14,7 +14,9 @@ The owner edits content through **Pages CMS** (app.pagescms.org), which commits 
    Always escape user text with `Site.esc()` and resolve media paths with `Site.asset()`.
 
 ## Map
-- `content/aten.json` → `index.html` (rendered by `js/aten.js`)
+- **For now the photo site is standalone:** root `index.html` only redirects to `photography/`; photo pages don't link to Aten.
+  The Aten page lives at `aten/index.html` (`data-root="../"`, `noindex`), unlinked, until the owner wants it back.
+- `content/aten.json` → `aten/index.html` (rendered by `js/aten.js`)
 - `content/photo.json` → `photography/index.html` (Trophy Room: photos with `trophy: true`) `photography/collection/` (all photos) and `photography/book/` (booking page: two Google Forms, `booking.convention.form_url` and `booking.anytime.form_url`; options without a link are hidden), rendered by `photography/js/photo.js`
 - `js/content.js` → shared loader; each page sets `<html data-root="...">` = path back to the site root
 - `media/collection/` → photos dropped here are added to `content/photo.json` → `photos` automatically by

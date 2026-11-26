@@ -53,7 +53,8 @@ content/photo.json       ← everything on the photo pages
 media/                   ← uploaded photos & PDFs
 .pages.yml               ← defines the Pages CMS forms
 
-index.html               → Aten Productions (main page)
+index.html               → redirects to the photo site (the public front page for now)
+aten/index.html          → Aten Productions page (hidden for now: not linked, not indexed)
 photography/             → Dylan's Collection home (Trophy Room favourites)
 photography/collection/  → The Collection (full gallery with filters)
 photography/book/        → Book a Shoot (shows your Google Form)

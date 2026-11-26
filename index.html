@@ -1,167 +1,17 @@
 <!doctype html>
-<html lang="en" data-root="">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Aten Productions — Technical Direction & Video Engineering</title>
-  <meta name="description" content="Aten Productions: freelance Technical Director and Video Engineer for live events, broadcast and streaming.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Chakra+Petch:wght@400;500;600;700&family=Share+Tech+Mono&family=Noto+Sans+Egyptian+Hieroglyphs&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/aten.css">
+  <title>Dylan's Collection — Photography</title>
+  <meta name="description" content="Dylan's Collection: a photography archive. Another fine addition to the collection.">
+  <!-- The photo site is the front page for now. The Aten Productions page is kept at aten/ (not linked). -->
+  <link rel="canonical" href="photography/">
+  <meta http-equiv="refresh" content="0; url=photography/">
+  <script>location.replace("photography/" + location.search + location.hash);</script>
+  <style>body{background:#070506;color:#ece3d4;font:16px Georgia,serif;display:grid;place-items:center;min-height:100vh;margin:0}a{color:#ff2a3a}</style>
 </head>
 <body>
-
-  <!-- ============ NAV ============ -->
-  <header class="nav" id="top">
-    <a href="#top" class="brand" aria-label="Aten Productions home">
-      <svg class="brand-disk" viewBox="0 0 64 64" aria-hidden="true">
-        <circle cx="32" cy="22" r="11" />
-        <g class="rays">
-          <line x1="32" y1="33" x2="32" y2="58"/><circle cx="32" cy="59" r="2"/>
-          <line x1="25" y1="31" x2="16" y2="54"/><circle cx="15.5" cy="55" r="2"/>
-          <line x1="39" y1="31" x2="48" y2="54"/><circle cx="48.5" cy="55" r="2"/>
-          <line x1="22" y1="27" x2="5"  y2="44"/><circle cx="4.5" cy="45" r="2"/>
-          <line x1="42" y1="27" x2="59" y2="44"/><circle cx="59.5" cy="45" r="2"/>
-        </g>
-      </svg>
-      <span>ATEN<small>PRODUCTIONS</small></span>
-    </a>
-    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
-    <nav class="nav-links">
-      <a href="#services">Services</a>
-      <a href="#work">Work</a>
-      <a href="#rig">The Rig</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-      <a href="photography/" class="nav-photo">Photography ↗</a>
-    </nav>
-  </header>
-
-  <!-- ============ HERO ============ -->
-  <section class="hero">
-    <div class="hero-grid" aria-hidden="true"></div>
-    <div class="hero-sun" aria-hidden="true">
-      <div class="sun-rays"></div>
-      <div class="sun-core"></div>
-    </div>
-
-    <div class="hero-inner">
-      <p class="eyebrow mono">// FREELANCE · LIVE · BROADCAST · STREAM</p>
-      <h1>Technical Direction<br><span class="gold">&amp; Video Engineering</span></h1>
-      <p class="lede">I'm <strong data-bind="name"></strong>. <span data-bind="hero_text"></span></p>
-      <div class="cta-row">
-        <a href="#contact" class="btn btn-gold">Book a Production</a>
-        <a href="#work" class="btn btn-ghost">View Work</a>
-      </div>
-    </div>
-
-    <div class="hero-eye" aria-hidden="true">
-      <svg class="horus" viewBox="0 0 200 130">
-        <path class="h-brow" d="M24 30 Q100 2 182 24"/>
-        <path class="h-eye" d="M30 62 Q100 18 168 58 L194 58 M30 62 Q100 86 168 58"/>
-        <circle class="h-pupil" cx="100" cy="56" r="15"/>
-        <path class="h-tear" d="M84 76 Q82 98 86 120"/>
-        <path class="h-tail" d="M112 76 Q122 106 152 108 Q170 106 166 92 Q161 82 151 90"/>
-      </svg>
-    </div>
-
-    <!-- broadcast monitor readout -->
-    <aside class="monitor mono" aria-label="Status readout">
-      <div class="mon-row"><span class="tally"></span> PGM <b>ON AIR</b></div>
-      <div class="mon-row">TC <b id="timecode">00:00:00:00</b></div>
-      <div class="mon-row">FMT <b data-bind="monitor.format"></b></div>
-      <div class="mon-row">LINK <b data-bind="monitor.link"></b></div>
-      <div class="bars" aria-hidden="true">
-        <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-      </div>
-    </aside>
-  </section>
-
-  <div class="frieze" aria-hidden="true"></div>
-
-  <!-- ============ SERVICES ============ -->
-  <section id="services" class="section">
-    <header class="section-head">
-      <p class="mono kicker">01 / SERVICES</p>
-      <h2>What I Bring to the Show</h2>
-    </header>
-    <div class="cards" id="services-list"><!-- filled from content/aten.json --></div>
-  </section>
-
-  <!-- ============ WORK ============ -->
-  <section id="work" class="section section-alt">
-    <header class="section-head">
-      <p class="mono kicker">02 / SELECTED WORK</p>
-      <h2>Productions</h2>
-    </header>
-    <div class="work-grid" id="work-list"><!-- filled from content/aten.json --></div>
-  </section>
-
-  <!-- ============ RIG ============ -->
-  <section id="rig" class="section">
-    <header class="section-head">
-      <p class="mono kicker">03 / THE RIG</p>
-      <h2>Tools I Run</h2>
-    </header>
-    <div class="spec" id="rig-list"><!-- filled from content/aten.json --></div>
-  </section>
-
-  <!-- ============ ABOUT / TIMELINE ============ -->
-  <section id="about" class="section section-alt">
-    <header class="section-head">
-      <p class="mono kicker">04 / ABOUT</p>
-      <h2>Behind the Console</h2>
-    </header>
-    <div class="about">
-      <div class="about-text">
-        <div id="about-text"></div>
-        <a data-href="resume" class="btn btn-ghost" download>Download Résumé</a>
-      </div>
-      <ol class="timeline" id="timeline"></ol>
-    </div>
-  </section>
-
-  <!-- ============ PHOTO CROSSOVER ============ -->
-  <section class="crossover">
-    <div class="crossover-inner">
-      <p class="mono kicker">AN ATEN PRODUCTIONS BRAND</p>
-      <h2>Off the clock, I'm building a collection.</h2>
-      <p>My photography lives under its own label: <strong>Dylan's Collection</strong>. Another fine addition, every time.</p>
-      <a href="photography/" class="btn btn-sakura">Enter Dylan's Collection →</a>
-    </div>
-  </section>
-
-  <!-- ============ CONTACT ============ -->
-  <section id="contact" class="section">
-    <header class="section-head">
-      <p class="mono kicker">05 / CONTACT</p>
-      <h2>Let's Build Your Show</h2>
-    </header>
-    <div class="contact">
-      <form class="contact-form" id="contact-form" method="post" enctype="text/plain">
-        <label>Name<input name="name" required></label>
-        <label>Email<input name="email" type="email" required></label>
-        <label>Event date &amp; location<input name="event"></label>
-        <label>Tell me about the production<textarea name="message" rows="5" required></textarea></label>
-        <button class="btn btn-gold" type="submit">Send Inquiry</button>
-      </form>
-      <div class="contact-info mono">
-        <p data-optional><span>EMAIL</span><a data-href="contact.email|mailto:" data-bind="contact.email"></a></p>
-        <p data-optional><span>PHONE</span><a data-href="contact.phone|tel:" data-bind="contact.phone"></a></p>
-        <p data-optional><span>BASED IN</span><span class="v" data-bind="contact.location"></span></p>
-        <p data-optional id="socials-row"><span>SOCIAL</span><span class="v" id="socials"></span></p>
-      </div>
-    </div>
-  </section>
-
-  <div class="frieze" aria-hidden="true"></div>
-  <footer class="footer mono">
-    <p>Aten Productions · All signals nominal.</p>
-    <a href="photography/">Dylan's Collection ↗</a>
-  </footer>
-
-  <script src="js/content.js"></script>
-  <script src="js/aten.js"></script>
+  <p>Entering <a href="photography/">Dylan's Collection</a>…</p>
 </body>
 </html>
